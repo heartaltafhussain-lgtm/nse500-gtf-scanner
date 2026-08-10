@@ -822,7 +822,7 @@
             // BANK / PVTBANK / PSUBANK / FINSERVICE (100% Audited CMPs)
             { sym: "SBIN",       comp: "State Bank of India",    sector: "PSUBANK",     type: "DEMAND", ltp: 1085.00, z1d: "1040 - 1075 DBR DEMAND",   s1d: "9.5 A+", z1m: "1000 - 1065 DBR DEMAND",  s1m: "9.5 A+", secBonus: "+2.0 PTS", combo: "11.5 / 10 🚀 SUPER COMBO", sig: "BUY READY" },
             { sym: "HDFCBANK",   comp: "HDFC Bank Ltd",          sector: "BANK",        type: "DEMAND", ltp: 730.65,  z1d: "710 - 726 DR DEMAND",      s1d: "9.5 A+", z1m: "695 - 720 DR DEMAND",     s1m: "9.5 A+", secBonus: "+2.0 PTS", combo: "11.5 / 10 🚀 SUPER COMBO", sig: "BUY READY" },
-            { sym: "ICICIBANK",  comp: "ICICI Bank Ltd",         sector: "PVTBANK",     type: "DEMAND", ltp: 1195.30, z1d: "1160 - 1190 DBR DEMAND",   s1d: "9.0 A+", z1m: "1120 - 1180 DBR DEMAND",  s1m: "9.0 A+", secBonus: "+2.0 PTS", combo: "11.0 / 10 🚀 SUPER COMBO", sig: "BUY READY" },
+            { sym: "ICICIBANK",  comp: "ICICI Bank Ltd",         sector: "PVTBANK",     type: "DEMAND", ltp: 1431.80, z1d: "1160 - 1190 DBR DEMAND",   s1d: "9.0 A+", z1m: "1120 - 1180 DBR DEMAND",  s1m: "9.0 A+", secBonus: "+2.0 PTS", combo: "11.0 / 10 🚀 SUPER COMBO", sig: "BUY READY" },
             { sym: "AXISBANK",   comp: "Axis Bank Ltd",          sector: "PVTBANK",     type: "DEMAND", ltp: 1245.60, z1d: "1210 - 1240 RBR DEMAND",   s1d: "8.5 A",  z1m: "1180 - 1230 DR DEMAND",   s1m: "9.0 A+", secBonus: "+2.0 PTS", combo: "10.5 / 10 🔥 HIGH COMBO",  sig: "BUY READY" },
             { sym: "BAJFINANCE", comp: "Bajaj Finance Ltd",      sector: "FINSERVICE",  type: "DEMAND", ltp: 6940.50, z1d: "6780 - 6900 DBR DEMAND",   s1d: "9.0 A+", z1m: "6650 - 6880 DBR DEMAND",  s1m: "9.0 A+", secBonus: "+2.0 PTS", combo: "11.0 / 10 🚀 SUPER COMBO", sig: "BUY READY" },
             { sym: "BAJAJFINSV", comp: "Bajaj Finserv Ltd",      sector: "FINSERVICE",  type: "SUPPLY", ltp: 2021.30, z1d: "2050 - 2090 RD SUPPLY",    s1d: "7.5 A",  z1m: "1980 - 2040 RBD SUPPLY", s1m: "8.5 A",  secBonus: "0.0 PTS",  combo: "8.5 / 10 ⚠️ SUPPLY NEAR", sig: "SUPPLY TEST" },
@@ -867,7 +867,8 @@
         // Try to fetch automated daily GitHub Actions JSON feed if available
         async function loadAutomatedJSONFeed() {
             try {
-                const res = await fetch("gtf_live_data.json");
+                const cacheBuster = new Date().getTime();
+                const res = await fetch("gtf_live_data.json?t=" + cacheBuster, { cache: "no-store" });
                 if (res.ok) {
                     const jsonData = await res.json();
                     if (jsonData.sectorIndices) {
@@ -1056,5 +1057,5 @@
         renderTable(stockData);
         checkSessionLock();
     </script>
-</body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a290938b49c2cf34',t:'MTc4NjM4MTQzMQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>

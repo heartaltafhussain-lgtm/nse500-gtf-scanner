@@ -825,6 +825,29 @@
             document.getElementById("filter-1d-score").value = "ALL";
             document.getElementById("filter-1m-score").value = "ALL";
             renderTable(stockData);
+
+        async function loadAutomatedJSONFeed() {
+            try {
+                const cacheBuster = new Date().getTime();
+                const res = await fetch("gtf_live_data.json?t=" + cacheBuster, { cache: "no-store" });
+                if (res.ok) {
+                    const jsonData = await res.json();
+                    if (jsonData.stockData) {
+                        stockData.length = 0;
+                        jsonData.stockData.forEach(st => {
+                            stockData.push({
+                                sym: st.sym, comp: st.comp, index: "NIFTY500", sector: st.sector,
+                                type: st.type, status: st.sig, ltp: st.ltp, top: st.z1d, bot: st.z1m,
+                                gap: "0.00%", s1d: st.s1d, s1m: st.s1m, sig: st.type === "DEMAND" ? "BUY" : "WAIT", watch: true
+                            });
+                        });
+                        renderTable(stockData);
+                    }
+                }
+            } catch(e) {}
+        }
+        loadAutomatedJSONFeed();
+
         }
 
         function copyWatchlist() {
@@ -848,7 +871,30 @@
 
         // Initialize table and check lock status on page load
         renderTable(stockData);
+
+        async function loadAutomatedJSONFeed() {
+            try {
+                const cacheBuster = new Date().getTime();
+                const res = await fetch("gtf_live_data.json?t=" + cacheBuster, { cache: "no-store" });
+                if (res.ok) {
+                    const jsonData = await res.json();
+                    if (jsonData.stockData) {
+                        stockData.length = 0;
+                        jsonData.stockData.forEach(st => {
+                            stockData.push({
+                                sym: st.sym, comp: st.comp, index: "NIFTY500", sector: st.sector,
+                                type: st.type, status: st.sig, ltp: st.ltp, top: st.z1d, bot: st.z1m,
+                                gap: "0.00%", s1d: st.s1d, s1m: st.s1m, sig: st.type === "DEMAND" ? "BUY" : "WAIT", watch: true
+                            });
+                        });
+                        renderTable(stockData);
+                    }
+                }
+            } catch(e) {}
+        }
+        loadAutomatedJSONFeed();
+
         checkSessionLock();
     </script>
-</body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a29093cb1ce9cf34',t:'MTc4NjM4MTQ0MQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
