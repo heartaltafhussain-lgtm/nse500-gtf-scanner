@@ -51,7 +51,7 @@
             border: 2px solid #2A2E39;
             border-radius: 12px;
             padding: 35px 40px;
-            width: 100%;
+            width: 90%;
             max-width: 420px;
             text-align: center;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
@@ -134,6 +134,8 @@
             margin-bottom: 25px;
             border-bottom: 1px solid var(--border-color);
             padding-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 15px;
         }
         .logo-title h1 {
             font-size: 24px;
@@ -152,8 +154,9 @@
         }
         .header-badges {
             display: flex;
-            gap: 12px;
+            gap: 10px;
             align-items: center;
+            flex-wrap: wrap;
         }
         .badge {
             background-color: #1A1E29;
@@ -309,16 +312,40 @@
         .btn-green:hover {
             background-color: rgba(0, 230, 118, 0.25);
         }
+
+        /* ================================================================
+           MOBILE SCROLL HINT BAR & RESPONSIVE TABLE WRAPPER
+           ================================================================ */
+        .mobile-swipe-hint {
+            display: none;
+            background: linear-gradient(90deg, rgba(255,179,0,0.15), rgba(0,230,118,0.15));
+            border: 1px solid rgba(255,179,0,0.4);
+            color: #FFD54F;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 12px;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
         .table-wrapper {
             background-color: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: 8px;
-            overflow: hidden;
+            width: 100%;
+            overflow-x: auto; /* ENABLE HORIZONTAL SCROLLING FOR TOUCH SCREENS! */
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch; /* SMOOTH iPHONE / ANDROID SWIPING! */
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            position: relative;
         }
         table {
             width: 100%;
             border-collapse: collapse;
+            min-width: 1100px; /* ENFORCES WIDE CLEAN FORMAT ON MOBILE! */
         }
         thead {
             background-color: var(--bg-header);
@@ -334,6 +361,7 @@
             letter-spacing: 0.5px;
             cursor: pointer;
             user-select: none;
+            white-space: nowrap; /* PREVENTS COLUMNS FROM SQUISHING */
         }
         th:hover {
             color: #fff;
@@ -347,10 +375,26 @@
             font-size: 13px;
             border-bottom: 1px solid #1A1E29;
             vertical-align: middle;
+            white-space: nowrap; /* KEEPS CONTENT CLEAN ON SCROLL */
         }
         tr:hover {
             background-color: #181C28;
         }
+
+        /* STICKY FIRST COLUMN ON MOBILE SO STOCK NAME NEVER GETS LOST */
+        th:first-child,
+        td:first-child {
+            position: sticky;
+            left: 0;
+            z-index: 5;
+            background-color: #131722;
+            border-right: 1px solid #2A2E39;
+        }
+        th:first-child {
+            background-color: #1E222D;
+            z-index: 10;
+        }
+
         .symbol-link {
             font-weight: 700;
             color: #00B0FF;
@@ -430,6 +474,42 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        /* ================================================================
+           MOBILE TOUCH SCREEN RESPONSIVENESS (SMARTPHONES)
+           ================================================================ */
+        @media (max-width: 768px) {
+            body {
+                padding: 14px;
+            }
+            .header-bar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .summary-cards {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            .card.total {
+                grid-column: span 2;
+            }
+            .mobile-swipe-hint {
+                display: flex;
+            }
+            .filter-bar {
+                padding: 10px;
+                gap: 8px;
+            }
+            .search-input {
+                min-width: 100%;
+            }
+            .filter-select {
+                flex: 1;
+                min-width: 140px;
+            }
         }
     </style>
 </head>
@@ -562,7 +642,12 @@
             <button class="btn" onclick="clearFilters()">✕ Clear</button>
         </div>
 
-        <!-- Main Dashboard Table -->
+        <!-- MOBILE SWIPE HINT BAR (VISIBLE ON SMARTPHONES ONLY) -->
+        <div class="mobile-swipe-hint">
+            <span>👉 ↔ Swipe table left / right to see 1D SCORE & 1M SCORE columns ↔</span>
+        </div>
+
+        <!-- Main Dashboard Table (Responsive Touch Swipe Wrapper) -->
         <div class="table-wrapper">
             <table id="stocks-table">
                 <thead>
