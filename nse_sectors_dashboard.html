@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GTF Sectoral Analysis & Stock Screener Dashboard — NSE INDIA</title>
+    <style>
+        :root {
+            --bg-main: #0E1117;
+            --bg-card: #131722;
+            --bg-header: #1E222D;
+            --border-color: #2A2E39;
+            --text-main: #E0E0E0;
+            --text-sub: #8A939F;
+            --green: #00E676;
+            --red: #FF5252;
+            --orange: #FFB300;
+            --purple: #B388FF;
+            --blue: #00B0FF;
+            --purple-fill: #9C27B0;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px 30px;
+        }
+
+        /* ================================================================
+           PASSWORD LOGIN OVERLAY (PASSWORD: 7004602)
+           ================================================================ */
+        #login-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(14, 17, 23, 0.96);
+            backdrop-filter: blur(10px);
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .login-box {
+            background-color: #131722;
+            border: 2px solid #2A2E39;
+            border-radius: 12px;
+            padding: 35px 40px;
+            width: 90%;
+            max-width: 420px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+        }
+        .login-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+        .login-box h2 {
+            color: #fff;
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .login-box p {
+            color: var(--text-sub);
+            font-size: 13px;
+            margin-bottom: 25px;
+        }
+        .login-input {
+            width: 100%;
+            background-color: #1A1E29;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 14px 16px;
+            color: #fff;
+            font-size: 16px;
+            text-align: center;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .login-input:focus {
+            border-color: var(--green);
+        }
+        .login-btn {
+            width: 100%;
+            background-color: var(--green);
+            color: #0E1117;
+            font-weight: 700;
+            font-size: 15px;
+            padding: 13px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .login-btn:hover {
+            background-color: #00C853;
+            transform: translateY(-1px);
+        }
+        .error-msg {
+            color: var(--red);
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 15px;
+            display: none;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-8px); }
+            40%, 80% { transform: translateX(8px); }
+        }
+        .shake {
+            animation: shake 0.4s;
+        }
+
+        /* ================================================================
+           MAIN DASHBOARD UI
+           ================================================================ */
+        .header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .logo-title h1 {
+            font-size: 24px;
+            color: #ffffff;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo-title span {
+            font-size: 12px;
+            color: var(--text-sub);
+            letter-spacing: 0.8px;
+            display: block;
+            margin-top: 4px;
+        }
+        .header-badges {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .badge {
+            background-color: #1A1E29;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .badge.date-badge {
+            background-color: rgba(0, 230, 118, 0.15);
+            border-color: rgba(0, 230, 118, 0.4);
+            color: var(--green);
+        }
+        .badge.eod-badge {
+            background-color: rgba(0, 176, 255, 0.15);
+            border-color: rgba(0, 176, 255, 0.4);
+            color: var(--blue);
+        }
+        .btn-lock {
+            background-color: rgba(255, 82, 82, 0.15);
+            border: 1px solid rgba(255, 82, 82, 0.4);
+            color: var(--red);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.2s;
+        }
+        .btn-lock:hover {
+            background-color: rgba(255, 82, 82, 0.3);
+        }
+
+        /* ================================================================
+           SECTOR INDICES MATRIX & FILTER TABS (EPISODE 16)
+           ================================================================ */
+        .section-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .sector-matrix {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+        .sector-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+        .sector-card:hover {
+            border-color: #00B0FF;
+            transform: translateY(-2px);
+            background-color: #181C28;
+        }
+        .sector-card.active {
+            border: 2px solid var(--green);
+            background-color: rgba(0, 230, 118, 0.08);
+        }
+        .sector-card.active-supply {
+            border: 2px solid var(--red);
+            background-color: rgba(255, 82, 82, 0.08);
+        }
+        .sec-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+        .sec-name {
+            font-size: 14px;
+            font-weight: 800;
+            color: #fff;
+        }
+        .sec-status {
+            font-size: 10px;
+            font-weight: 800;
+            padding: 3px 7px;
+            border-radius: 4px;
+        }
+        .sec-dem {
+            background-color: rgba(0, 230, 118, 0.2);
+            color: var(--green);
+            border: 1px solid var(--green);
+        }
+        .sec-sup {
+            background-color: rgba(255, 82, 82, 0.2);
+            color: var(--red);
+            border: 1px solid var(--red);
+        }
+        .sec-neu {
+            background-color: rgba(255, 179, 0, 0.15);
+            color: var(--orange);
+            border: 1px solid var(--orange);
+        }
+        .sec-details {
+            font-size: 12px;
+            color: var(--text-sub);
+            display: flex;
+            justify-content: space-between;
+            margin-top: 6px;
+        }
+        .sec-score {
+            font-weight: 700;
+            color: #FFD54F;
+        }
+
+        /* ACTIVE SECTOR HERO BANNER */
+        .sector-hero {
+            background: linear-gradient(135deg, #181C28, #131722);
+            border: 1px solid #00B0FF;
+            border-radius: 10px;
+            padding: 18px 24px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .hero-left h3 {
+            color: #fff;
+            font-size: 18px;
+            margin-bottom: 4px;
+        }
+        .hero-left p {
+            color: var(--text-sub);
+            font-size: 13px;
+        }
+        .hero-right {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        .combo-badge {
+            background-color: rgba(0, 230, 118, 0.2);
+            border: 1px solid var(--green);
+            color: var(--green);
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 800;
+            font-size: 13px;
+        }
+
+        /* FILTER BAR */
+        .filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 20px;
+            align-items: center;
+            background-color: var(--bg-card);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+        .search-input {
+            flex: 1;
+            min-width: 220px;
+            background-color: #1A1E29;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 8px 12px;
+            color: var(--text-main);
+            font-size: 13px;
+        }
+        .search-input::placeholder {
+            color: var(--text-sub);
+        }
+        .filter-select {
+            background-color: #1A1E29;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 8px 12px;
+            color: var(--text-main);
+            font-size: 13px;
+            cursor: pointer;
+        }
+        .btn {
+            background-color: #1A1E29;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+        .btn:hover {
+            background-color: #262B38;
+        }
+        .btn-green {
+            background-color: rgba(0, 230, 118, 0.15);
+            border-color: rgba(0, 230, 118, 0.4);
+            color: var(--green);
+        }
+        .btn-green:hover {
+            background-color: rgba(0, 230, 118, 0.25);
+        }
+
+        /* ================================================================
+           MOBILE SWIPE HINT BAR & RESPONSIVE TABLE WRAPPER
+           ================================================================ */
+        .mobile-swipe-hint {
+            display: none;
+            background: linear-gradient(90deg, rgba(255,179,0,0.15), rgba(0,230,118,0.15));
+            border: 1px solid rgba(255,179,0,0.4);
+            color: #FFD54F;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 12px;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        .table-wrapper {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            width: 100%;
+            overflow-x: auto; /* ENABLE HORIZONTAL SCROLLING FOR TOUCH SCREENS! */
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch; /* SMOOTH iPHONE / ANDROID SWIPING! */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1100px; /* ENFORCES WIDE CLEAN FORMAT ON MOBILE! */
+        }
+        thead {
+            background-color: var(--bg-header);
+            border-bottom: 2px solid var(--border-color);
+        }
+        th {
+            padding: 12px 14px;
+            text-align: left;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-sub);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            user-select: none;
+            white-space: nowrap; /* PREVENTS COLUMNS FROM SQUISHING */
+        }
+        th:hover {
+            color: #fff;
+        }
+        th.extra-col {
+            background-color: rgba(255, 179, 0, 0.1);
+            color: var(--orange);
+        }
+        td {
+            padding: 12px 14px;
+            font-size: 13px;
+            border-bottom: 1px solid #1A1E29;
+            vertical-align: middle;
+            white-space: nowrap; /* KEEPS CONTENT CLEAN ON SCROLL */
+        }
+        tr:hover {
+            background-color: #181C28;
+        }
+
+        /* STICKY FIRST COLUMN ON MOBILE SO STOCK NAME NEVER GETS LOST */
+        th:first-child,
+        td:first-child {
+            position: sticky;
+            left: 0;
+            z-index: 5;
+            background-color: #131722;
+            border-right: 1px solid #2A2E39;
+        }
+        th:first-child {
+            background-color: #1E222D;
+            z-index: 10;
+        }
+
+        .symbol-link {
+            font-weight: 700;
+            color: #00B0FF;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.2s;
+        }
+        .symbol-link:hover {
+            color: #40C4FF;
+            text-decoration: underline;
+        }
+        .score-badge {
+            font-weight: 800;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            display: inline-block;
+        }
+        .score-a-plus { background-color: rgba(0, 230, 118, 0.2); color: var(--green); border: 1px solid var(--green); }
+        .score-a      { background-color: rgba(105, 240, 174, 0.15); color: #69F0AE; border: 1px solid #69F0AE; }
+        .score-b      { background-color: rgba(255, 179, 0, 0.15); color: var(--orange); border: 1px solid var(--orange); }
+        .sig-buy {
+            color: var(--green);
+            font-weight: 800;
+            background-color: rgba(0, 230, 118, 0.15);
+            padding: 5px 10px;
+            border-radius: 4px;
+            border: 1px solid rgba(0, 230, 118, 0.4);
+            display: inline-block;
+        }
+        .sig-sell {
+            color: var(--red);
+            font-weight: 800;
+            background-color: rgba(255, 82, 82, 0.15);
+            padding: 5px 10px;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 82, 82, 0.4);
+            display: inline-block;
+        }
+        .footer {
+            margin-top: 25px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-sub);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        @media (max-width: 768px) {
+            body { padding: 14px; }
+            .header-bar { flex-direction: column; align-items: flex-start; }
+            .mobile-swipe-hint { display: flex; }
+            .filter-bar { padding: 10px; gap: 8px; }
+            .search-input { min-width: 100%; }
+            .filter-select { flex: 1; min-width: 140px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ================================================================
+         PASSWORD LOGIN OVERLAY (FULL SCREEN MODAL) — PASSWORD: 7004602
+         ================================================================ -->
+    <div id="login-overlay">
+        <div class="login-box" id="login-box">
+            <div class="login-icon">🔒</div>
+            <h2>GTF SECTORAL ANALYSIS DASHBOARD</h2>
+            <p>NSE INDIA • SECTOR ROTATION & SCREENER (EPISODE 16)</p>
+            <input type="password" id="password-input" class="login-input" placeholder="Enter Access Password..." autocomplete="off" onkeydown="if(event.key==='Enter') verifyPassword()">
+            <button class="login-btn" onclick="verifyPassword()">
+                <span>Unlock Dashboard</span> 🔓
+            </button>
+            <div id="login-error" class="error-msg">❌ Incorrect Password. Access Denied.</div>
+        </div>
+    </div>
+
+    <!-- ================================================================
+         MAIN DASHBOARD UI
+         ================================================================ -->
+    <div id="main-dashboard-content" style="filter: blur(8px); pointer-events: none; transition: filter 0.3s;">
+        <!-- Header Bar -->
+        <div class="header-bar">
+            <div class="logo-title">
+                <h1>GTF Sectoral Analysis & Stock Screener</h1>
+                <span>NSE INDIA • EPISODE 16 SECTOR ROTATION • TIMEFRAME SCORE COMBOS</span>
+            </div>
+            <div class="header-badges">
+                <div class="badge date-badge">● 2026-08-09</div>
+                <div class="badge eod-badge">📊 EOD Confirmed Scan (3:30 PM IST)</div>
+                <button class="btn-lock" onclick="lockDashboard()" title="Lock Dashboard and return to password screen">
+                    🔒 Lock Dashboard
+                </button>
+            </div>
+        </div>
+
+        <!-- Section Title -->
+        <div class="section-title">
+            <span>🟢 1. Select NSE Sector Index (Episode 16: Sector Rotation & Alignment)</span>
+        </div>
+
+        <!-- SECTOR INDICES MATRIX (EPISODE 16) -->
+        <div class="sector-matrix" id="sector-matrix-container">
+            <!-- Populated dynamically via JavaScript -->
+        </div>
+
+        <!-- ACTIVE SECTOR HERO BANNER -->
+        <div class="sector-hero" id="sector-hero">
+            <div class="hero-left">
+                <h3 id="hero-title">🏦 NIFTY BANK (BANKING SECTOR) • 1M & 1D DEMAND ALIGNMENT</h3>
+                <p id="hero-desc">Sector Index is inside a 9.5/10 A+ Monthly Demand Zone (51,200). Double Institutional Support active (+2.0 pts Ep 16 Bonus for all Banking stocks!).</p>
+            </div>
+            <div class="hero-right">
+                <div class="combo-badge" id="hero-badge">🔥 SECTOR COMBO ACTIVE (+2 PTS)</div>
+            </div>
+        </div>
+
+        <!-- Section Title -->
+        <div class="section-title">
+            <span>🟢 2. Filter & Screen NSE Stocks by Selected Sector</span>
+        </div>
+
+        <!-- Filter & Search Bar -->
+        <div class="filter-bar">
+            <input type="text" id="search-box" class="search-input" placeholder="🔍 Symbol ya company search..." onkeyup="filterTable()">
+            
+            <select id="filter-sector" class="filter-select" onchange="onSectorSelectChange()">
+                <option value="ALL">Sector: All Sectors</option>
+                <option value="BANK">BANK (Nifty Bank)</option>
+                <option value="OIL">OIL / ENERGY (Nifty Energy)</option>
+                <option value="IT">IT / TECH (Nifty IT)</option>
+                <option value="AUTO">AUTO (Nifty Auto)</option>
+                <option value="METAL">METAL (Nifty Metal)</option>
+                <option value="PHARMA">PHARMA (Nifty Pharma)</option>
+                <option value="FMCG">FMCG (Nifty FMCG)</option>
+            </select>
+
+            <select id="filter-type" class="filter-select" onchange="filterTable()">
+                <option value="ALL">Type: All</option>
+                <option value="DEMAND">DEMAND</option>
+                <option value="SUPPLY">SUPPLY</option>
+            </select>
+
+            <select id="filter-1d-score" class="filter-select" style="border-color: var(--orange);" onchange="filterTable()">
+                <option value="ALL">1D Score: All</option>
+                <option value="A+">A+ (9-10/10)</option>
+                <option value="A">A (7-8.5/10)</option>
+                <option value="B">B (5.5-6.5/10)</option>
+            </select>
+
+            <select id="filter-1m-score" class="filter-select" style="border-color: var(--orange);" onchange="filterTable()">
+                <option value="ALL">1M Score: All</option>
+                <option value="A+">A+ (9-10/10)</option>
+                <option value="A">A (7-8.5/10)</option>
+                <option value="B">B (5.5-6.5/10)</option>
+            </select>
+
+            <button class="btn btn-green" onclick="copyWatchlist()">📋 Copy Watchlist</button>
+            <button class="btn" onclick="downloadCSV()">⬇ Download CSV</button>
+            <button class="btn" onclick="clearFilters()">✕ Clear</button>
+        </div>
+
+        <!-- MOBILE SWIPE HINT BAR -->
+        <div class="mobile-swipe-hint">
+            <span>👉 ↔ Swipe table left / right to view 1D, 1M & GTF COMBO SCORE columns ↔</span>
+        </div>
+
+        <!-- Main Dashboard Table -->
+        <div class="table-wrapper">
+            <table id="stocks-table">
+                <thead>
+                    <tr>
+                        <th onclick="sortTable(0)">SYMBOL ⇕</th>
+                        <th onclick="sortTable(1)">COMPANY</th>
+                        <th onclick="sortTable(2)">SECTOR INDEX</th>
+                        <th onclick="sortTable(3)">TYPE</th>
+                        <th onclick="sortTable(4)">LTP (INR)</th>
+                        <th onclick="sortTable(5)">1D EXEC ZONE</th>
+                        <th class="extra-col" onclick="sortTable(6)" title="Daily Timeframe Execution Trade Score">1D SCORE ⭐</th>
+                        <th onclick="sortTable(7)">1M SUPPORT ZONE</th>
+                        <th class="extra-col" onclick="sortTable(8)" title="Monthly Timeframe Supporting Trade Score">1M SCORE ⭐</th>
+                        <th onclick="sortTable(9)" style="color: #00E676;">SECTOR BONUS (+2)</th>
+                        <th class="extra-col" onclick="sortTable(10)" style="color: #FFD54F;" title="Episode 16 Total Combo Score">GTF COMBO SCORE 🚀</th>
+                        <th onclick="sortTable(11)">SETUP STATUS</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                    <!-- Javascript will populate rows dynamically -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="footer">
+            <div>Showing <span id="row-count">14</span> stocks • GTF Episode 16 Sectoral Analysis Screener</div>
+            <div>NSE Nifty 500 • Execution: Daily (1D) | Supporting: Monthly (1M) | Sector Alignment (+2.0 pts)</div>
+        </div>
+    </div>
+
+    <script>
+        // ================================================================
+        // PASSWORD AUTHENTICATION ENGINE (PASSWORD: 7004602)
+        // ================================================================
+        const CORRECT_PASSWORD = "7004602";
+
+        function checkSessionLock() {
+            const isUnlocked = sessionStorage.getItem("gtf_sectors_unlocked");
+            if (isUnlocked === "true") {
+                unlockDashboardUI();
+            } else {
+                lockDashboard();
+            }
+        }
+
+        function verifyPassword() {
+            const inputVal = document.getElementById("password-input").value.trim();
+            const errDiv   = document.getElementById("login-error");
+            const boxDiv   = document.getElementById("login-box");
+
+            if (inputVal === CORRECT_PASSWORD) {
+                errDiv.style.display = "none";
+                sessionStorage.setItem("gtf_sectors_unlocked", "true");
+                unlockDashboardUI();
+            } else {
+                errDiv.style.display = "block";
+                boxDiv.classList.remove("shake");
+                void boxDiv.offsetWidth;
+                boxDiv.classList.add("shake");
+                document.getElementById("password-input").value = "";
+                document.getElementById("password-input").focus();
+            }
+        }
+
+        function unlockDashboardUI() {
+            document.getElementById("login-overlay").style.display = "none";
+            const mainContent = document.getElementById("main-dashboard-content");
+            mainContent.style.filter = "none";
+            mainContent.style.pointerEvents = "auto";
+        }
+
+        function lockDashboard() {
+            sessionStorage.removeItem("gtf_sectors_unlocked");
+            document.getElementById("password-input").value = "";
+            document.getElementById("login-error").style.display = "none";
+            document.getElementById("login-overlay").style.display = "flex";
+            const mainContent = document.getElementById("main-dashboard-content");
+            mainContent.style.filter = "blur(8px)";
+            mainContent.style.pointerEvents = "none";
+            setTimeout(() => {
+                document.getElementById("password-input").focus();
+            }, 100);
+        }
+
+        // ================================================================
+        // NSE SECTOR INDICES DATA (EPISODE 16 SECTOR ROTATION)
+        // ================================================================
+        const sectorIndices = [
+            { id: "ALL",    name: "🌐 ALL SECTORS",    status: "EQUILIBRIUM", type: "NEUTRAL", score: "8.5 A", ltp: "NSE 500", desc: "Showing all 500 NSE stocks sorted by GTF Combo Score.", bonus: "+2.0 Max" },
+            { id: "BANK",   name: "🏦 NIFTY BANK",     status: "IN DEMAND",   type: "DEMAND",  score: "9.5 A+", ltp: "51,200",  desc: "Nifty Bank inside 9.5/10 A+ Monthly Demand Zone. Institutional banking accumulation.", bonus: "+2.0 PTS DEMAND" },
+            { id: "OIL",    name: "🛢️ NIFTY ENERGY",   status: "IN DEMAND",   type: "DEMAND",  score: "9.0 A+", ltp: "40,150",  desc: "Energy Index pulling back into Monthly Demand Support (Reliance & ONGC leading).", bonus: "+2.0 PTS DEMAND" },
+            { id: "IT",     name: "💻 NIFTY IT",       status: "NEAR SUPPLY", type: "SUPPLY",  score: "8.5 A",  ltp: "39,850",  desc: "IT Index near Monthly Supply Zone (40,200). Profit booking / cautious buying.", bonus: "0.0 PTS (Supply Near)" },
+            { id: "AUTO",   name: "🚗 NIFTY AUTO",     status: "IN DEMAND",   type: "DEMAND",  score: "9.5 A+", ltp: "24,800",  desc: "Auto Index inside strong Monthly Demand Zone. High probability swing setups.", bonus: "+2.0 PTS DEMAND" },
+            { id: "METAL",  name: "⚙️ NIFTY METAL",    status: "IN DEMAND",   type: "DEMAND",  score: "9.0 A+", ltp: "9,420",   desc: "Metal Index bottoming out at Monthly Demand Zone (Tata Steel, Hindalco).", bonus: "+2.0 PTS DEMAND" },
+            { id: "PHARMA", name: "💊 NIFTY PHARMA",   status: "EQUILIBRIUM", type: "NEUTRAL", score: "8.0 A",  ltp: "22,100",  desc: "Pharma index trending in middle of curve. Select stock-specific setups.", bonus: "+1.0 PT TREND" },
+            { id: "FMCG",   name: "🛒 NIFTY FMCG",     status: "IN DEMAND",   type: "DEMAND",  score: "9.0 A+", ltp: "57,200",  desc: "Defensive FMCG accumulation inside Monthly Support (ITC, HUL).", bonus: "+2.0 PTS DEMAND" }
+        ];
+
+        let selectedSector = "ALL";
+
+        function renderSectorMatrix() {
+            const container = document.getElementById("sector-matrix-container");
+            container.innerHTML = "";
+            sectorIndices.forEach(sec => {
+                const div = document.createElement("div");
+                const activeClass = (selectedSector === sec.id) ? (sec.type === "SUPPLY" ? "active-supply" : "active") : "";
+                div.className = `sector-card ${activeClass}`;
+                div.onclick = () => selectSector(sec.id);
+                
+                let tagClass = "sec-neu";
+                if (sec.type === "DEMAND") tagClass = "sec-dem";
+                if (sec.type === "SUPPLY") tagClass = "sec-sup";
+
+                div.innerHTML = `
+                    <div class="sec-head">
+                        <span class="sec-name">${sec.name}</span>
+                        <span class="sec-status ${tagClass}">${sec.status}</span>
+                    </div>
+                    <div class="sec-details">
+                        <span>LTP: ${sec.ltp}</span>
+                        <span class="sec-score">Score: ${sec.score}</span>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function selectSector(secId) {
+            selectedSector = secId;
+            document.getElementById("filter-sector").value = secId;
+            renderSectorMatrix();
+            updateHeroBanner();
+            filterTable();
+        }
+
+        function onSectorSelectChange() {
+            const secId = document.getElementById("filter-sector").value;
+            selectedSector = secId;
+            renderSectorMatrix();
+            updateHeroBanner();
+            filterTable();
+        }
+
+        function updateHeroBanner() {
+            const sec = sectorIndices.find(s => s.id === selectedSector) || sectorIndices[0];
+            document.getElementById("hero-title").innerText = `${sec.name} • ${sec.status} ALIGNMENT`;
+            document.getElementById("hero-desc").innerText  = sec.desc;
+            const badge = document.getElementById("hero-badge");
+            badge.innerText = `🔥 SECTOR BONUS: ${sec.bonus}`;
+            badge.style.borderColor = (sec.type === "SUPPLY") ? "#FF5252" : "#00E676";
+            badge.style.color       = (sec.type === "SUPPLY") ? "#FF5252" : "#00E676";
+            badge.style.backgroundColor = (sec.type === "SUPPLY") ? "rgba(255, 82, 82, 0.15)" : "rgba(0, 230, 118, 0.15)";
+        }
+
+        // ================================================================
+        // SAMPLE NSE STOCKS WITH SECTOR COMBO SCORES (EPISODE 16)
+        // ================================================================
+        const stockData = [
+            { sym: "HDFCBANK",   comp: "HDFC Bank Ltd",          sector: "BANK",   type: "DEMAND", ltp: 1645.80, z1d: "1610 - 1650 DR DEMAND",   s1d: "9.5 A+", z1m: "1590 - 1660 DR DEMAND", s1m: "9.5 A+", secBonus: "+2.0 PTS", combo: "11.5 / 10 🚀 SUPER COMBO", sig: "BUY READY" },
+            { sym: "RELIANCE",   comp: "Reliance Industries",    sector: "OIL",    type: "DEMAND", ltp: 2985.20, z1d: "2940 - 2990 DBR DEMAND",  s1d: "9.5 A+", z1m: "2850 - 2980 DBR DEMAND", s1m: "9.0 A+", secBonus: "+2.0 PTS", combo: "11.5 / 10 🚀 SUPER COMBO", sig: "BUY READY" },
+            { sym: "TATAMOTORS", comp: "Tata Motors Ltd",        sector: "AUTO",   type: "DEMAND", ltp: 985.20,  z1d: "960 - 990 DBR DEMAND",    s1d: "9.5 A+", z1m: "930 - 980 DBR DEMAND",   s1m: "9.5 A+", secBonus: "+2.0 PTS", combo: "11.5 / 10 🚀 SUPER COMBO", sig: "BUY READY" },
+            { sym: "SBIN",       comp: "State Bank of India",    sector: "BANK",   type: "DEMAND", ltp: 824.10,  z1d: "800 - 820 DBR DEMAND",    s1d: "9.0 A+", z1m: "780 - 815 DBR DEMAND",   s1m: "9.0 A+", secBonus: "+2.0 PTS", combo: "11.0 / 10 🚀 SUPER COMBO", sig: "BUY READY" },
+            { sym: "ICICIBANK",  comp: "ICICI Bank Ltd",         sector: "BANK",   type: "DEMAND", ltp: 1195.30, z1d: "1160 - 1190 DBR DEMAND",  s1d: "9.0 A+", z1m: "1120 - 1180 DBR DEMAND", s1m: "9.0 A+", secBonus: "+2.0 PTS", combo: "11.0 / 10 🚀 SUPER COMBO", sig: "BUY READY" },
+            { sym: "TATASTEEL",  comp: "Tata Steel Ltd",         sector: "METAL",  type: "DEMAND", ltp: 168.40,  z1d: "162 - 167 DR DEMAND",     s1d: "9.0 A+", z1m: "155 - 166 DR DEMAND",    s1m: "9.0 A+", secBonus: "+2.0 PTS", combo: "11.0 / 10 🚀 SUPER COMBO", sig: "BUY READY" },
+            { sym: "AXISBANK",   comp: "Axis Bank Ltd",          sector: "BANK",   type: "DEMAND", ltp: 1245.60, z1d: "1210 - 1240 RBR DEMAND",  s1d: "8.5 A",  z1m: "1180 - 1230 DR DEMAND",  s1m: "9.0 A+", secBonus: "+2.0 PTS", combo: "10.5 / 10 🔥 HIGH COMBO",  sig: "BUY READY" },
+            { sym: "ITC",        comp: "ITC Limited",            sector: "FMCG",   type: "DEMAND", ltp: 498.40,  z1d: "485 - 495 DBR DEMAND",    s1d: "8.5 A",  z1m: "470 - 490 DBR DEMAND",   s1m: "8.5 A",  secBonus: "+2.0 PTS", combo: "10.5 / 10 🔥 HIGH COMBO",  sig: "BUY READY" },
+            { sym: "SUNPHARMA",  comp: "Sun Pharma Inds",        sector: "PHARMA", type: "DEMAND", ltp: 1540.20, z1d: "1490 - 1530 DBR DEMAND",  s1d: "8.5 A",  z1m: "1450 - 1520 DBR DEMAND", s1m: "8.0 A",  secBonus: "+1.0 PT",  combo: "9.5 / 10 ⭐ SOLID COMBO",  sig: "BUY READY" },
+            { sym: "TCS",        comp: "Tata Consultancy Svs",   sector: "IT",     type: "DEMAND", ltp: 4120.50, z1d: "4020 - 4100 RBR DEMAND",  s1d: "8.5 A",  z1m: "3950 - 4080 DBR DEMAND", s1m: "8.5 A",  secBonus: "0.0 PTS",  combo: "8.5 / 10 ✅ NORMAL",      sig: "PULLBACK" },
+            { sym: "INFY",       comp: "Infosys Ltd",            sector: "IT",     type: "SUPPLY", ltp: 1820.40, z1d: "1850 - 1900 RBD SUPPLY",  s1d: "8.5 A",  z1m: "1880 - 1950 RBD SUPPLY", s1m: "8.5 A",  secBonus: "0.0 PTS",  combo: "8.5 / 10 ⚠️ SUPPLY NEAR", sig: "MONITOR" },
+            { sym: "UPL",        comp: "UPL Ltd",                sector: "AGRI",   type: "SUPPLY", ltp: 371.71,  z1d: "385 - 402 DBD SUPPLY",    s1d: "10.0 A+",z1m: "395 - 420 DBD SUPPLY",   s1m: "8.5 A",  secBonus: "0.0 PTS",  combo: "10.0 / 10 🔴 SUPPLY HIT", sig: "SELL WATCH" },
+            { sym: "DIXON",      comp: "Dixon Technologies",     sector: "IT",     type: "SUPPLY", ltp: 1575.41, z1d: "1620 - 1672 RBD SUPPLY",  s1d: "10.0 A+",z1m: "1650 - 1720 RBD SUPPLY", s1m: "9.0 A+", secBonus: "0.0 PTS",  combo: "10.0 / 10 🔴 SUPPLY HIT", sig: "SELL WATCH" },
+            { sym: "IPCA",       comp: "Ipca Laboratories",      sector: "PHARMA", type: "SUPPLY", ltp: 1052.33, z1d: "1080 - 1112 RBD SUPPLY",  s1d: "9.3 A+", z1m: "1100 - 1150 RBD SUPPLY", s1m: "8.5 A",  secBonus: "0.0 PTS",  combo: "9.3 / 10 🔴 SUPPLY HIT",  sig: "SELL WATCH" }
+        ];
+
+        function renderTable(data) {
+            const tbody = document.getElementById("table-body");
+            tbody.innerHTML = "";
+            data.forEach(item => {
+                const tr = document.createElement("tr");
+                
+                const score1Class = item.s1d.includes("A+") ? "score-a-plus" : (item.s1d.includes("A") ? "score-a" : "score-b");
+                const score2Class = item.s1m.includes("A+") ? "score-a-plus" : (item.s1m.includes("A") ? "score-a" : "score-b");
+                
+                let sigClass = "sig-buy";
+                if (item.sig.includes("SELL")) sigClass = "sig-sell";
+                if (item.sig.includes("PULLBACK") || item.sig.includes("MONITOR")) sigClass = "score-b";
+
+                let comboCol = "#00E676";
+                if (item.combo.includes("HIGH") || item.combo.includes("SOLID")) comboCol = "#69F0AE";
+                if (item.combo.includes("SUPPLY") || item.combo.includes("SELL")) comboCol = "#FF5252";
+
+                tr.innerHTML = `
+                    <td>
+                        <a href="https://in.tradingview.com/chart/?symbol=NSE%3A${item.sym}" target="_blank" class="symbol-link" title="Click to open ${item.comp} chart in TradingView">
+                            ${item.sym} <span style="font-size: 11px;">↗</span>
+                        </a>
+                    </td>
+                    <td>${item.comp}</td>
+                    <td><span style="color: #FFB300; font-weight: 700;">NIFTY ${item.sector}</span></td>
+                    <td><span class="tag ${item.type === 'DEMAND' ? 'tag-demand' : 'tag-supply'}">${item.type}</span></td>
+                    <td style="font-weight: 700; color: #fff;">₹${item.ltp.toFixed(2)}</td>
+                    <td style="color: #69F0AE; font-size: 12px;">${item.z1d}</td>
+                    <td style="background-color: rgba(255,179,0,0.05);"><span class="score-badge ${score1Class}">${item.s1d}</span></td>
+                    <td style="color: #8A939F; font-size: 12px;">${item.z1m}</td>
+                    <td style="background-color: rgba(255,179,0,0.05);"><span class="score-badge ${score2Class}">${item.s1m}</span></td>
+                    <td style="font-weight: 800; color: #00E676;">${item.secBonus}</td>
+                    <td style="font-weight: 800; color: ${comboCol}; font-size: 14px;">${item.combo}</td>
+                    <td><span class="${sigClass}">${item.sig}</span></td>
+                `;
+                tbody.appendChild(tr);
+            });
+            document.getElementById("row-count").innerText = data.length;
+        }
+
+        function filterTable() {
+            const search = document.getElementById("search-box").value.toLowerCase();
+            const sector = document.getElementById("filter-sector").value;
+            const type   = document.getElementById("filter-type").value;
+            const s1d    = document.getElementById("filter-1d-score").value;
+            const s1m    = document.getElementById("filter-1m-score").value;
+
+            const filtered = stockData.filter(item => {
+                const matchSearch = item.sym.toLowerCase().includes(search) || item.comp.toLowerCase().includes(search);
+                const matchSector = (sector === "ALL") || (item.sector === sector);
+                const matchType   = (type === "ALL") || (item.type === type);
+                const match1D     = (s1d === "ALL") || item.s1d.includes(s1d);
+                const match1M     = (s1m === "ALL") || item.s1m.includes(s1m);
+                return matchSearch && matchSector && matchType && match1D && match1M;
+            });
+            renderTable(filtered);
+        }
+
+        function clearFilters() {
+            document.getElementById("search-box").value = "";
+            document.getElementById("filter-sector").value = "ALL";
+            document.getElementById("filter-type").value = "ALL";
+            document.getElementById("filter-1d-score").value = "ALL";
+            document.getElementById("filter-1m-score").value = "ALL";
+            selectedSector = "ALL";
+            renderSectorMatrix();
+            updateHeroBanner();
+            renderTable(stockData);
+        }
+
+        function copyWatchlist() {
+            const symbols = stockData.map(item => "NSE:" + item.sym).join(", ");
+            navigator.clipboard.writeText(symbols);
+            alert("📋 14 NSE Symbols Copied to Clipboard!\n\n" + symbols);
+        }
+
+        function downloadCSV() {
+            let csv = "SYMBOL,COMPANY,SECTOR_INDEX,TYPE,LTP,1D_EXEC_ZONE,1D_SCORE,1M_SUPPORT_ZONE,1M_SCORE,SECTOR_BONUS_EP16,GTF_TOTAL_COMBO_SCORE,SIGNAL\n";
+            stockData.forEach(item => {
+                csv += `${item.sym},"${item.comp}",NIFTY_${item.sector},${item.type},${item.ltp},"${item.z1d}","${item.s1d}","${item.z1m}","${item.s1m}",${item.secBonus},"${item.combo}",${item.sig}\n`;
+            });
+            const blob = new Blob([csv], { type: "text/csv" });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "GTF_Sectoral_Analysis_Dashboard.csv";
+            a.click();
+        }
+
+        // Initialize UI
+        renderSectorMatrix();
+        updateHeroBanner();
+        renderTable(stockData);
+        checkSessionLock();
+    </script>
+</body>
+</html>
