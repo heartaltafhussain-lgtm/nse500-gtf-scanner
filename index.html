@@ -685,19 +685,29 @@
             <table style="width: 100%; border-collapse: collapse; text-align: left; min-width: 850px;">
                 <thead>
                     <tr style="background: #11221c; border-bottom: 2px solid #00E676;">
-                        <th style="padding: 12px 14px; color: #00E676; font-size: 11px; text-transform: uppercase;">SWING PICK & SECTOR</th>
-                        <th style="padding: 12px 14px; color: #00E676; font-size: 11px; text-transform: uppercase;">LIVE CMP & COMBO</th>
-                        <th style="padding: 12px 14px; color: #00E676; font-size: 11px; text-transform: uppercase;">GTF INSTITUTIONAL ZONES (1D & 1M)</th>
-                        <th style="padding: 12px 14px; color: #00E676; font-size: 11px; text-transform: uppercase;">SWING TRADE PLAN (ENTRY, SL, TARGET)</th>
-                        <th style="padding: 12px 14px; color: #00E676; font-size: 11px; text-transform: uppercase;">QTY PLAN (₹3,000 GOAL)</th>
-                        <th style="padding: 12px 14px; color: #00E676; font-size: 11px; text-transform: uppercase; text-align: center;">ACTION</th>
+                        <th onclick="sortTable(0)">SYMBOL ⇕</th>
+                        <th onclick="sortTable(1)">COMPANY</th>
+                        <th onclick="sortTable(2)">SECTOR INDEX</th>
+                        <th onclick="sortTable(3)">TYPE</th>
+                        <th onclick="sortTable(4)">LTP (INR)</th>
+                        <th onclick="sortTable(5)">1D EXEC ZONE</th>
+                        <th onclick="sortTable(6)">1D SCORE ⭐</th>
+                        <th onclick="sortTable(7)">1M SUPPORT ZONE</th>
+                        <th onclick="sortTable(8)">1M SCORE ⭐</th>
+                        <th onclick="sortTable(9)">1W TREND 🌐</th>
+                        <th onclick="sortTable(10)">FRESHNESS 🟢</th>
+                        <th onclick="sortTable(11)">VOLUME 🔥</th>
+                        <th onclick="sortTable(12)">SECTOR BONUS</th>
+                        <th onclick="sortTable(13)">GTF COMBO SCORE 🚀</th>
+                        <th onclick="sortTable(14)">SETUP STATUS</th>
+                        <th style="text-align: center;">CALCULATOR 🧮</th>
                     </tr>
                 </thead>
                 <tbody>
                     <!-- ROW 1: TATASTEEL -->
                     <tr style="border-bottom: 1px solid #1e3a2e; background: rgba(19, 23, 34, 0.9);">
                         <td style="padding: 14px; vertical-align: middle;">
-                            <a href="https://in.tradingview.com/chart/?symbol=NSE%3ATATASTEEL" target="_blank" style="font-size: 16px; font-weight: 800; color: #fff; text-decoration: none;">TATASTEEL ↗</a>
+                            <a href="https://in.tradingview.com/chart/?symbol=NSE%3ATATASTEEL" target="_blank" style="font-size: 16px; font-weight: 800; color: #fff; text-decoration: none;" title="Click to open TATASTEEL chart in TradingView">TATASTEEL ↗</a>
                             <div style="color: #00E676; font-size: 11px; font-weight: 700; margin-top: 4px;">NIFTY METAL (+2.0 PTS)</div>
                         </td>
                         <td style="padding: 14px; vertical-align: middle;">
@@ -720,15 +730,14 @@
                             </div>
                         </td>
                         <td style="padding: 14px; text-align: center; vertical-align: middle;">
-                            <a href="https://in.tradingview.com/chart/?symbol=NSE%3ATATASTEEL" target="_blank" style="display: inline-block; background: #2962ff; color: #fff; font-weight: 700; font-size: 12px; padding: 8px 14px; border-radius: 6px; text-decoration: none; white-space: nowrap;">📊 Open Chart</a>
-                    <button onclick="openCalcModal(TATASTEEL, 189.0, 185.0)" style="background:#00E676;color:#000;border:none;font-weight:700;font-size:11px;padding:6px 10px;border-radius:4px;cursor:pointer;margin-top:5px;width:100%;">🧮 Qty Calc</button>
+                            <button class="calc-btn" onclick="openCalcModal('TATASTEEL', 189.0, 185.0)" style="background:#00E676;color:#000;border:none;font-weight:800;font-size:12px;padding:10px 16px;border-radius:6px;cursor:pointer;white-space:nowrap;box-shadow: 0 4px 12px rgba(0,230,118,0.3);" title="Open Lot Size & Risk Calculator for TATASTEEL">🧮 Qty Calc</button>
                         </td>
                     </tr>
 
                     <!-- ROW 2: RELIANCE -->
                     <tr style="border-bottom: 1px solid #1e3a2e; background: rgba(15, 20, 28, 0.9);">
                         <td style="padding: 14px; vertical-align: middle;">
-                            <a href="https://in.tradingview.com/chart/?symbol=NSE%3ARELIANCE" target="_blank" style="font-size: 16px; font-weight: 800; color: #fff; text-decoration: none;">RELIANCE ↗</a>
+                            <a href="https://in.tradingview.com/chart/?symbol=NSE%3ARELIANCE" target="_blank" style="font-size: 16px; font-weight: 800; color: #fff; text-decoration: none;" title="Click to open RELIANCE chart in TradingView">RELIANCE ↗</a>
                             <div style="color: #00E676; font-size: 11px; font-weight: 700; margin-top: 4px;">NIFTY ENERGY (+2.0 PTS)</div>
                         </td>
                         <td style="padding: 14px; vertical-align: middle;">
@@ -751,15 +760,14 @@
                             </div>
                         </td>
                         <td style="padding: 14px; text-align: center; vertical-align: middle;">
-                            <a href="https://in.tradingview.com/chart/?symbol=NSE%3ARELIANCE" target="_blank" style="display: inline-block; background: #2962ff; color: #fff; font-weight: 700; font-size: 12px; padding: 8px 14px; border-radius: 6px; text-decoration: none; white-space: nowrap;">📊 Open Chart</a>
-                    <button onclick="openCalcModal(TATASTEEL, 189.0, 185.0)" style="background:#00E676;color:#000;border:none;font-weight:700;font-size:11px;padding:6px 10px;border-radius:4px;cursor:pointer;margin-top:5px;width:100%;">🧮 Qty Calc</button>
+                            <button class="calc-btn" onclick="openCalcModal('RELIANCE', 1310.0, 1285.0)" style="background:#00E676;color:#000;border:none;font-weight:800;font-size:12px;padding:10px 16px;border-radius:6px;cursor:pointer;white-space:nowrap;box-shadow: 0 4px 12px rgba(0,230,118,0.3);" title="Open Lot Size & Risk Calculator for RELIANCE">🧮 Qty Calc</button>
                         </td>
                     </tr>
 
                     <!-- ROW 3: HDFCBANK -->
                     <tr style="background: rgba(19, 23, 34, 0.9);">
                         <td style="padding: 14px; vertical-align: middle;">
-                            <a href="https://in.tradingview.com/chart/?symbol=NSE%3AHDFCBANK" target="_blank" style="font-size: 16px; font-weight: 800; color: #fff; text-decoration: none;">HDFCBANK ↗</a>
+                            <a href="https://in.tradingview.com/chart/?symbol=NSE%3AHDFCBANK" target="_blank" style="font-size: 16px; font-weight: 800; color: #fff; text-decoration: none;" title="Click to open HDFCBANK chart in TradingView">HDFCBANK ↗</a>
                             <div style="color: #00E676; font-size: 11px; font-weight: 700; margin-top: 4px;">NIFTY BANK (+2.0 PTS)</div>
                         </td>
                         <td style="padding: 14px; vertical-align: middle;">
@@ -782,8 +790,7 @@
                             </div>
                         </td>
                         <td style="padding: 14px; text-align: center; vertical-align: middle;">
-                            <a href="https://in.tradingview.com/chart/?symbol=NSE%3AHDFCBANK" target="_blank" style="display: inline-block; background: #2962ff; color: #fff; font-weight: 700; font-size: 12px; padding: 8px 14px; border-radius: 6px; text-decoration: none; white-space: nowrap;">📊 Open Chart</a>
-                    <button onclick="openCalcModal(TATASTEEL, 189.0, 185.0)" style="background:#00E676;color:#000;border:none;font-weight:700;font-size:11px;padding:6px 10px;border-radius:4px;cursor:pointer;margin-top:5px;width:100%;">🧮 Qty Calc</button>
+                            <button class="calc-btn" onclick="openCalcModal('HDFCBANK', 720.0, 708.0)" style="background:#00E676;color:#000;border:none;font-weight:800;font-size:12px;padding:10px 16px;border-radius:6px;cursor:pointer;white-space:nowrap;box-shadow: 0 4px 12px rgba(0,230,118,0.3);" title="Open Lot Size & Risk Calculator for HDFCBANK">🧮 Qty Calc</button>
                         </td>
                     </tr>
                 </tbody>
@@ -950,25 +957,25 @@
 
                 tr.innerHTML = `
                     <td>
-                        <a href="https://in.tradingview.com/chart/?symbol=NSE%3A${item.sym}" target="_blank" class="symbol-link" title="Click to open ${item.comp} chart in TradingView">
+                        <a href="https://in.tradingview.com/chart/?symbol=NSE%3A${item.sym}" target="_blank" class="symbol-link" title="Click to open ${item.comp} live chart in TradingView">
                             ${item.sym} <span style="font-size: 11px;">↗</span>
                         </a>
                     </td>
                     <td>${item.comp}</td>
-                    <td><span style="color: #FFB300; font-weight: 600;">${item.index}</span></td>
-                    <td><span style="color: #8A939F;">${item.sector}</span></td>
-                    <td><span class="tag ${item.type === 'DEMAND' ? 'tag-demand' : 'tag-supply'}">${item.type}</span></td>
-                    <td>${statusBadge}</td>
+                    <td><span style="color: #FFB300; font-weight: 700;">NIFTY_${item.sector}</span></td>
+                    <td><span class="tag ${item.type === DEMAND ? tag-demand : tag-supply}">${item.type}</span></td>
                     <td style="font-weight: 700; color: #fff;">₹${item.ltp.toFixed(2)}</td>
-                    <td style="color: #8A939F;">₹${item.top.toFixed(2)}</td>
-                    <td style="color: #8A939F;">₹${item.bot.toFixed(2)}</td>
-                    <td style="color: #8A939F;">${item.gap}</td>
-                    <!-- EXTRA COLUMN 1: DAILY TIMEFRAME EXECUTION SCORE -->
+                    <td style="color: #69F0AE; font-size: 12px;">${item.z1d}</td>
                     <td style="background-color: rgba(255,179,0,0.05);"><span class="score-badge ${score1Class}">${item.s1d}</span></td>
-                    <!-- EXTRA COLUMN 2: MONTHLY TIMEFRAME SUPPORTING SCORE -->
+                    <td style="color: #8A939F; font-size: 12px;">${item.z1m}</td>
                     <td style="background-color: rgba(255,179,0,0.05);"><span class="score-badge ${score2Class}">${item.s1m}</span></td>
-                    <td><span class="${item.sig === 'BUY' ? 'sig-buy' : 'sig-sell'}">${item.sig}</span></td>
-                    <td style="text-align: center;"><input type="checkbox" ${item.watch ? 'checked' : ''} style="cursor: pointer; width: 16px; height: 16px;"></td>
+                    <td style="color: #60a5fa; font-weight: 700; font-size: 11.5px;">${item.w_trend || "1W UP • 20 EMA BULLISH"}</td>
+                    <td style="font-size: 12px; white-space: nowrap;">${item.fresh_badge || "🟢 0 TESTS (FRESH)"}</td>
+                    <td style="font-weight: 700; font-size: 11.5px; color: #facc15; white-space: nowrap;">${item.vol_expl || "NORMAL VOL"}</td>
+                    <td style="font-weight: 800; color: #00E676;">${item.secBonus}</td>
+                    <td style="font-weight: 800; color: ${comboCol}; font-size: 14px; white-space: nowrap;">${item.combo}</td>
+                    <td><span class="${sigClass}">${item.sig}</span></td>
+                    <td style="text-align: center;"><button class="calc-btn" onclick="openCalcModal('${item.sym}', ${(item.ltp * 0.98).toFixed(1)}, ${(item.ltp * 0.96).toFixed(1)})" title="Calculate lot size for ${item.sym}">🧮 Qty</button></td>
                 `;
                 tbody.appendChild(tr);
             });
