@@ -642,7 +642,7 @@
         
         
         <!-- TOP 3 WEEKLY INSTITUTIONAL SWING PICKS TABLE (TARGET: ₹3,000/WEEK PROFIT) -->
-        <div class="table-wrapper" style="margin: 20px 0 25px 0; border: 2px solid #00E676; border-radius: 12px; overflow-x: auto; -webkit-overflow-scrolling: touch; background: #0c1511; box-shadow: 0 8px 24px rgba(0, 230, 118, 0.15);">
+        <div class="top3-table-wrapper" style="margin: 15px 0 25px 0; border: 2px solid #00E676; border-radius: 12px; overflow-x: auto; -webkit-overflow-scrolling: touch; background: #0c1511; box-shadow: 0 8px 24px rgba(0, 230, 118, 0.15);">
             <div style="background: linear-gradient(90deg, #0f2e21, #0a1f16); padding: 14px 20px; border-bottom: 2px solid #00E676; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
                 <div>
                     <h3 style="color: #00E676; font-size: 16.5px; font-weight: 800; margin: 0;">🏆 TOP 3 INSTITUTIONAL WEEKLY SWING PICKS • TARGET: ₹3,000/WEEK PROFIT GOAL</h3>
@@ -656,22 +656,12 @@
             <table style="width: 100%; border-collapse: collapse; text-align: left; min-width: 850px;">
                 <thead>
                     <tr style="background: #11221c; border-bottom: 2px solid #00E676;">
-                        <th onclick="sortTable(0)">SYMBOL ⇕</th>
-                        <th onclick="sortTable(1)">COMPANY</th>
-                        <th onclick="sortTable(2)">SECTOR INDEX</th>
-                        <th onclick="sortTable(3)">TYPE</th>
-                        <th onclick="sortTable(4)">LTP (INR)</th>
-                        <th onclick="sortTable(5)">1D EXEC ZONE</th>
-                        <th onclick="sortTable(6)">1D SCORE ⭐</th>
-                        <th onclick="sortTable(7)">1M SUPPORT ZONE</th>
-                        <th onclick="sortTable(8)">1M SCORE ⭐</th>
-                        <th onclick="sortTable(9)">1W TREND 🌐</th>
-                        <th onclick="sortTable(10)">FRESHNESS 🟢</th>
-                        <th onclick="sortTable(11)">VOLUME 🔥</th>
-                        <th onclick="sortTable(12)">SECTOR BONUS</th>
-                        <th onclick="sortTable(13)">GTF COMBO SCORE 🚀</th>
-                        <th onclick="sortTable(14)">SETUP STATUS</th>
-                        <th style="text-align: center;">CALCULATOR 🧮</th>
+                        <th style="padding: 12px 14px; color: #00E676; font-size: 11px; text-transform: uppercase;">SWING PICK & SECTOR</th>
+                        <th style="padding: 12px 14px; color: #00E676; font-size: 11px; text-transform: uppercase;">LIVE CMP & COMBO</th>
+                        <th style="padding: 12px 14px; color: #00E676; font-size: 11px; text-transform: uppercase;">GTF INSTITUTIONAL ZONES (1D & 1M)</th>
+                        <th style="padding: 12px 14px; color: #00E676; font-size: 11px; text-transform: uppercase;">SWING TRADE PLAN (ENTRY, SL, TARGET)</th>
+                        <th style="padding: 12px 14px; color: #00E676; font-size: 11px; text-transform: uppercase;">QTY PLAN (₹3,000 GOAL)</th>
+                        <th style="padding: 12px 14px; color: #00E676; font-size: 11px; text-transform: uppercase; text-align: center;">ACTION</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -701,7 +691,7 @@
                             </div>
                         </td>
                         <td style="padding: 14px; text-align: center; vertical-align: middle;">
-                            <button class="calc-btn" onclick="openCalcModal('TATASTEEL', 189.0, 185.0)" style="background:#00E676;color:#000;border:none;font-weight:800;font-size:12px;padding:10px 16px;border-radius:6px;cursor:pointer;white-space:nowrap;box-shadow: 0 4px 12px rgba(0,230,118,0.3);" title="Open Lot Size & Risk Calculator for TATASTEEL">🧮 Qty Calc</button>
+                            <button class="calc-btn" onclick="openCalcModal(&#39;TATASTEEL&#39;, 189.0, 185.0)" style="background:#00E676;color:#000;border:none;font-weight:800;font-size:12px;padding:10px 16px;border-radius:6px;cursor:pointer;white-space:nowrap;box-shadow: 0 4px 12px rgba(0,230,118,0.3);" title="Open Lot Size & Risk Calculator for TATASTEEL">🧮 Qty Calc</button>
                         </td>
                     </tr>
 
@@ -731,7 +721,7 @@
                             </div>
                         </td>
                         <td style="padding: 14px; text-align: center; vertical-align: middle;">
-                            <button class="calc-btn" onclick="openCalcModal('RELIANCE', 1310.0, 1285.0)" style="background:#00E676;color:#000;border:none;font-weight:800;font-size:12px;padding:10px 16px;border-radius:6px;cursor:pointer;white-space:nowrap;box-shadow: 0 4px 12px rgba(0,230,118,0.3);" title="Open Lot Size & Risk Calculator for RELIANCE">🧮 Qty Calc</button>
+                            <button class="calc-btn" onclick="openCalcModal(&#39;RELIANCE&#39;, 1310.0, 1285.0)" style="background:#00E676;color:#000;border:none;font-weight:800;font-size:12px;padding:10px 16px;border-radius:6px;cursor:pointer;white-space:nowrap;box-shadow: 0 4px 12px rgba(0,230,118,0.3);" title="Open Lot Size & Risk Calculator for RELIANCE">🧮 Qty Calc</button>
                         </td>
                     </tr>
 
@@ -761,7 +751,7 @@
                             </div>
                         </td>
                         <td style="padding: 14px; text-align: center; vertical-align: middle;">
-                            <button class="calc-btn" onclick="openCalcModal('HDFCBANK', 720.0, 708.0)" style="background:#00E676;color:#000;border:none;font-weight:800;font-size:12px;padding:10px 16px;border-radius:6px;cursor:pointer;white-space:nowrap;box-shadow: 0 4px 12px rgba(0,230,118,0.3);" title="Open Lot Size & Risk Calculator for HDFCBANK">🧮 Qty Calc</button>
+                            <button class="calc-btn" onclick="openCalcModal(&#39;HDFCBANK&#39;, 720.0, 708.0)" style="background:#00E676;color:#000;border:none;font-weight:800;font-size:12px;padding:10px 16px;border-radius:6px;cursor:pointer;white-space:nowrap;box-shadow: 0 4px 12px rgba(0,230,118,0.3);" title="Open Lot Size & Risk Calculator for HDFCBANK">🧮 Qty Calc</button>
                         </td>
                     </tr>
                 </tbody>
@@ -1140,16 +1130,20 @@
             data.forEach(item => {
                 const tr = document.createElement("tr");
                 
-                const score1Class = item.s1d.includes("A+") ? "score-a-plus" : (item.s1d.includes("A") ? "score-a" : "score-b");
-                const score2Class = item.s1m.includes("A+") ? "score-a-plus" : (item.s1m.includes("A") ? "score-a" : "score-b");
+                const score1Class = (item.s1d && item.s1d.includes("A+")) ? "score-a-plus" : ((item.s1d && item.s1d.includes("A")) ? "score-a" : "score-b");
+                const score2Class = (item.s1m && item.s1m.includes("A+")) ? "score-a-plus" : ((item.s1m && item.s1m.includes("A")) ? "score-a" : "score-b");
                 
                 let sigClass = "sig-buy";
-                if (item.sig.includes("SELL") || item.sig.includes("SUPPLY")) sigClass = "sig-sell";
-                if (item.sig.includes("PULLBACK") || item.sig.includes("MONITOR")) sigClass = "score-b";
+                if (item.sig && (item.sig.includes("SELL") || item.sig.includes("SUPPLY"))) sigClass = "sig-sell";
+                if (item.sig && (item.sig.includes("PULLBACK") || item.sig.includes("MONITOR"))) sigClass = "score-b";
 
                 let comboCol = "#00E676";
-                if (item.combo.includes("HIGH") || item.combo.includes("SOLID")) comboCol = "#69F0AE";
-                if (item.combo.includes("SUPPLY") || item.combo.includes("SELL")) comboCol = "#FF5252";
+                if (item.combo && (item.combo.includes("HIGH") || item.combo.includes("SOLID"))) comboCol = "#69F0AE";
+                if (item.combo && (item.combo.includes("SUPPLY") || item.combo.includes("SELL"))) comboCol = "#FF5252";
+
+                const ltpNum = parseFloat(item.ltp) || 1000.0;
+                const buyEntry = (ltpNum * 0.98).toFixed(1);
+                const buySl    = (ltpNum * 0.96).toFixed(1);
 
                 tr.innerHTML = `
                     <td>
@@ -1160,7 +1154,7 @@
                     <td>${item.comp}</td>
                     <td><span style="color: #FFB300; font-weight: 700;">NIFTY_${item.sector}</span></td>
                     <td><span class="tag ${item.type === DEMAND ? tag-demand : tag-supply}">${item.type}</span></td>
-                    <td style="font-weight: 700; color: #fff;">₹${item.ltp.toFixed(2)}</td>
+                    <td style="font-weight: 700; color: #fff;">₹${ltpNum.toFixed(2)}</td>
                     <td style="color: #69F0AE; font-size: 12px;">${item.z1d}</td>
                     <td style="background-color: rgba(255,179,0,0.05);"><span class="score-badge ${score1Class}">${item.s1d}</span></td>
                     <td style="color: #8A939F; font-size: 12px;">${item.z1m}</td>
@@ -1171,7 +1165,7 @@
                     <td style="font-weight: 800; color: #00E676;">${item.secBonus}</td>
                     <td style="font-weight: 800; color: ${comboCol}; font-size: 14px; white-space: nowrap;">${item.combo}</td>
                     <td><span class="${sigClass}">${item.sig}</span></td>
-                    <td style="text-align: center;"><button class="calc-btn" onclick="openCalcModal('${item.sym}', ${(item.ltp * 0.98).toFixed(1)}, ${(item.ltp * 0.96).toFixed(1)})" title="Calculate lot size for ${item.sym}">🧮 Qty</button></td>
+                    <td style="text-align: center;"><button class="calc-btn" onclick="openCalcModal(&#39;${item.sym}&#39;, ${buyEntry}, ${buySl})" title="Calculate lot size for ${item.sym}">🧮 Qty</button></td>
                 `;
                 tbody.appendChild(tr);
             });
@@ -1302,5 +1296,5 @@
         </div>
     </div>
 
-</body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a2a0f9686a4ec6c0',t:'MTc4NjU1MzM3Ng=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
