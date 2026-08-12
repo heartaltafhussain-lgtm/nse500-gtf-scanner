@@ -671,6 +671,7 @@
                         </td>
                         <td style="padding: 14px; text-align: center; vertical-align: middle;">
                             <a href="https://in.tradingview.com/chart/?symbol=NSE%3ATATASTEEL" target="_blank" style="display: inline-block; background: #2962ff; color: #fff; font-weight: 700; font-size: 12px; padding: 8px 14px; border-radius: 6px; text-decoration: none; white-space: nowrap;">📊 Open Chart</a>
+                    <button onclick="openCalcModal(TATASTEEL, 189.0, 185.0)" style="background:#00E676;color:#000;border:none;font-weight:700;font-size:11px;padding:6px 10px;border-radius:4px;cursor:pointer;margin-top:5px;width:100%;">🧮 Qty Calc</button>
                         </td>
                     </tr>
 
@@ -701,6 +702,7 @@
                         </td>
                         <td style="padding: 14px; text-align: center; vertical-align: middle;">
                             <a href="https://in.tradingview.com/chart/?symbol=NSE%3ARELIANCE" target="_blank" style="display: inline-block; background: #2962ff; color: #fff; font-weight: 700; font-size: 12px; padding: 8px 14px; border-radius: 6px; text-decoration: none; white-space: nowrap;">📊 Open Chart</a>
+                    <button onclick="openCalcModal(TATASTEEL, 189.0, 185.0)" style="background:#00E676;color:#000;border:none;font-weight:700;font-size:11px;padding:6px 10px;border-radius:4px;cursor:pointer;margin-top:5px;width:100%;">🧮 Qty Calc</button>
                         </td>
                     </tr>
 
@@ -731,6 +733,7 @@
                         </td>
                         <td style="padding: 14px; text-align: center; vertical-align: middle;">
                             <a href="https://in.tradingview.com/chart/?symbol=NSE%3AHDFCBANK" target="_blank" style="display: inline-block; background: #2962ff; color: #fff; font-weight: 700; font-size: 12px; padding: 8px 14px; border-radius: 6px; text-decoration: none; white-space: nowrap;">📊 Open Chart</a>
+                    <button onclick="openCalcModal(TATASTEEL, 189.0, 185.0)" style="background:#00E676;color:#000;border:none;font-weight:700;font-size:11px;padding:6px 10px;border-radius:4px;cursor:pointer;margin-top:5px;width:100%;">🧮 Qty Calc</button>
                         </td>
                     </tr>
                 </tbody>
@@ -1066,6 +1069,37 @@
         
         let currentlyVisibleStocks = stockData;
 
+        
+        function openCalcModal(sym, entry, sl) {
+            document.getElementById("calc-stock-label").innerText = "Stock: " + sym + " | GTF Institutional Plan";
+            document.getElementById("calc-entry").value = entry;
+            document.getElementById("calc-sl").value = sl;
+            document.getElementById("calc-modal-overlay").style.display = "flex";
+            calculateLotSize();
+        }
+
+        function closeCalcModal() {
+            document.getElementById("calc-modal-overlay").style.display = "none";
+        }
+
+        function calculateLotSize() {
+            const goal = parseFloat(document.getElementById("calc-goal").value) || 3000;
+            const risk = parseFloat(document.getElementById("calc-risk").value) || 1000;
+            const entry = parseFloat(document.getElementById("calc-entry").value) || 100;
+            const sl = parseFloat(document.getElementById("calc-sl").value) || 95;
+            
+            const riskPerShare = Math.max(entry - sl, 0.1);
+            const qty = Math.round(risk / riskPerShare);
+            const cap = Math.round(qty * entry);
+            const t1  = (entry + (riskPerShare * 2)).toFixed(2);
+            const t2  = (entry + (riskPerShare * 3)).toFixed(2);
+            
+            document.getElementById("res-qty").innerText = qty + " Shares";
+            document.getElementById("res-cap").innerText = "₹" + cap.toLocaleString();
+            document.getElementById("res-t1").innerText = "₹" + t1 + " (+₹" + Math.round(qty * riskPerShare * 2).toLocaleString() + ")";
+            document.getElementById("res-t2").innerText = "₹" + t2 + " (+₹" + Math.round(qty * riskPerShare * 3).toLocaleString() + " NET)";
+        }
+
         function renderTable(data) {
             currentlyVisibleStocks = data;
             const tbody = document.getElementById("table-body");
@@ -1185,5 +1219,52 @@
         renderTable(stockData);
         checkSessionLock();
     </script>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a2a006fbbd6c4007',t:'MTc4NjU0MzQ0Ng=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+
+    <!-- INTERACTIVE LOT SIZE & RISK-REWARD CALCULATOR MODAL -->
+    <div class="modal-overlay" id="calc-modal-overlay">
+        <div class="calc-modal">
+            <div class="calc-title">🧮 GTF INSTITUTIONAL LOT &amp; RISK-REWARD CALCULATOR</div>
+            <div style="font-size: 13px; color: #94a3b8; margin-bottom: 14px;" id="calc-stock-label">Stock: TATASTEEL</div>
+            
+            <div class="calc-row">
+                <label>🎯 Weekly Profit Target (₹):</label>
+                <input type="number" id="calc-goal" class="calc-input" value="3000" oninput="calculateLotSize()">
+            </div>
+            <div class="calc-row">
+                <label>🛑 Max Acceptable Risk (₹):</label>
+                <input type="number" id="calc-risk" class="calc-input" value="1000" oninput="calculateLotSize()">
+            </div>
+            <div class="calc-row">
+                <label>🟢 Buy Entry Price (₹):</label>
+                <input type="number" id="calc-entry" class="calc-input" value="189.00" step="0.1" oninput="calculateLotSize()">
+            </div>
+            <div class="calc-row">
+                <label>🛑 Strict SL Distal (₹):</label>
+                <input type="number" id="calc-sl" class="calc-input" value="185.00" step="0.1" oninput="calculateLotSize()">
+            </div>
+
+            <div class="calc-result-box">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                    <span>📦 Recommended Quantity:</span>
+                    <strong style="color: #00E676; font-size: 16px;" id="res-qty">250 Shares</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                    <span>💰 Capital Required:</span>
+                    <strong style="color: #60a5fa;" id="res-cap">₹47,250</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                    <span>🎯 Target 1 (1:2 R:R):</span>
+                    <strong style="color: #facc15;" id="res-t1">₹197.00 (+₹2,000)</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                    <span>🚀 Target 2 (1:3 R:R):</span>
+                    <strong style="color: #4ade80;" id="res-t2">₹201.00 (+₹3,000 NET)</strong>
+                </div>
+            </div>
+
+            <button class="calc-close-btn" onclick="closeCalcModal()">✕ Close Calculator</button>
+        </div>
+    </div>
+
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a2a0b692e9f2cf34',t:'MTc4NjU1MDYzOA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
