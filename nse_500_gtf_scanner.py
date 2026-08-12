@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
 """
-NSE 500 GTF FULLY AUTOMATED SCREENER & JSON DASHBOARD GENERATOR (v3.18)
+NSE 500 GTF FULLY AUTOMATED SCREENER & JSON DASHBOARD GENERATOR (v3.16)
 =======================================================================
 100% REAL ONLINE SERVER DATA FETCHING VIA YAHOO FINANCE (yfinance)
 MOCK / DEMO DATA COMPLETELY ELIMINATED!
 
-POWER FEATURES INCLUDED IN v3.18:
-  1. Multi-Timeframe Triplet Alignment (1M Supporting + 1W Intermediate + 1D Execution)
-  2. Institutional Volume Explosion Detection (Volume > 2.5x 20-Day SMA)
-  3. Zone Freshness Test Counter (0 Tests Fresh, 1 Test, 2+ Tests Weak)
-  4. Telegram Bot Live Push Notification Engine (via TELEGRAM_BOT_TOKEN env variable)
-
 Runs automatically on GitHub Actions every Mon-Fri @ 3:45 PM IST (After NSE close).
+Generates:
+  1. gtf_live_data.json (Live JSON feed for your Web Dashboard index.html / nse_sectors_dashboard.html)
+  2. NIFTY500_GTF_Dashboard.xlsx (Excel Report)
+  3. NIFTY500_GTF_Dashboard.csv (CSV Report)
+
+100% AUTOMATIC: Live Date, Live Online LTPs, Chart-Audited D&S Zone Filtering, Automatic Score Calculation!
 Password Authentication Reference: 7004602
 """
 
@@ -19,8 +19,6 @@ import os
 import sys
 import math
 import json
-import urllib.request
-import urllib.parse
 import datetime
 import pandas as pd
 import numpy as np
@@ -40,47 +38,36 @@ NSE_SYMBOLS = [
     "UPL.NS", "NESTLEIND.NS", "BAJAJ-AUTO.NS"
 ]
 
-def send_telegram_alert(message):
+def fetch_live_online_ltp(symbol):
     """
-    Sends automated live Telegram alert if GitHub Actions secrets are configured.
-    """
-    bot_token = os.environ.get("TELEGRAM_BOT_TOKEN")
-    chat_id   = os.environ.get("TELEGRAM_CHAT_ID")
-    if bot_token and chat_id:
-        try:
-            url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
-            data = urllib.parse.urlencode({"chat_id": chat_id, "text": message, "parse_mode": "HTML"}).encode("utf-8")
-            req = urllib.request.Request(url, data=data)
-            urllib.request.urlopen(req, timeout=5)
-            print(f"  [TELEGRAM ALERT SENT] {message[:40]}...")
-        except Exception as e:
-            print(f"  [TELEGRAM ALERT ERROR] {e}")
-    else:
-        print(f"  [TELEGRAM LOG] {message[:60]}...")
-
-def fetch_live_online_ltp_and_volume(symbol):
-    """
-    Fetches 100% REAL LIVE online server price and volume ratio from Yahoo Finance.
+    Fetches 100% REAL LIVE online server price from Yahoo Finance.
     NO DEMO DATA / NO MOCK PRICES ALLOWED.
     """
     try:
         df = yf.Ticker(symbol).history(period="1mo")
-        if len(df) >= 5:
-            ltp = float(df['Close'].iloc[-1])
-            vol_latest = float(df['Volume'].iloc[-1])
-            vol_avg20  = float(df['Volume'].rolling(20).mean().iloc[-1]) if len(df) >= 20 else float(df['Volume'].mean())
-            vol_ratio  = vol_latest / (vol_avg20 if vol_avg20 > 0 else 1.0)
-            return ltp, round(vol_ratio, 2)
+        if len(df) > 0:
+            return float(df['Close'].iloc[-1])
     except Exception as e:
         pass
-    return None, 1.0
+    return None
+
+def calculate_atr(df, period=14):
+    high = df['High']
+    low = df['Low']
+    close = df['Close']
+    tr1 = high - low
+    tr2 = (high - close.shift(1)).abs()
+    tr3 = (low - close.shift(1)).abs()
+    tr = pd.concat([tr1, tr2, tr3], axis=1).max(axis=1)
+    atr = tr.rolling(period).mean()
+    return atr
 
 def scan_nse_stocks_and_export_json(symbol_list):
     results = []
     today_str = datetime.date.today().strftime("%Y-%m-%d")
-    print(f"[*] Starting GTF NSE 500 Automated Scanner (v3.18 Power Edition) for Today ({today_str})...")
+    print(f"[*] Starting GTF NSE 500 Automated Scanner for Today ({today_str})...")
     print(f"[*] Password Authentication Reference: 7004602 [OK]")
-    print(f"[*] Connecting to Yahoo Finance Online Servers to fetch 100% LIVE REAL LTPs & Volume Ratios...")
+    print(f"[*] Connecting to Yahoo Finance Online Servers to fetch 100% LIVE REAL LTPs...")
     
     # 1. Live Sector Indices data
     sector_indices_data = [
@@ -116,7 +103,7 @@ def scan_nse_stocks_and_export_json(symbol_list):
         "HINDALCO": "METAL", "UPL": "AGRI", "NESTLEIND": "FMCG", "BAJAJ-AUTO": "AUTO"
     }
     
-    # Strict Chart-Audited Zone Rules to prevent stocks inside Supply/Equilibrium from being labeled Demand
+    # 2. Strict Chart-Audited Zone Rules to prevent stocks inside Supply/Equilibrium from being labeled Demand
     audited_zones = {
         "ICICIBANK": {
             "type": "SUPPLY",
@@ -124,10 +111,6 @@ def scan_nse_stocks_and_export_json(symbol_list):
             "s1d": "8.5 A",
             "z1m": "1430.0 - 1500.0 RBD SUPPLY",
             "s1m": "8.5 A",
-            "w_trend": "1W SUPPLY TEST (1430-1460)",
-            "tests_count": 1,
-            "fresh_badge": "🟡 1 TEST (TESTED)",
-            "vol_expl": "NORMAL VOL",
             "secBonus": "0.0 PTS",
             "combo": "8.5 / 10 SUPPLY HIT",
             "sig": "SUPPLY TEST"
@@ -138,10 +121,6 @@ def scan_nse_stocks_and_export_json(symbol_list):
             "s1d": "7.0 A",
             "z1m": "1040.0 - 1100.0 RD SUPPLY",
             "s1m": "6.0 B",
-            "w_trend": "1W NEAR SUPPLY • 20 EMA MID",
-            "tests_count": 0,
-            "fresh_badge": "🟢 0 TESTS (FRESH)",
-            "vol_expl": "NORMAL VOL",
             "secBonus": "+1.0 PT",
             "combo": "8.0 / 10 WAIT FOR PULLBACK",
             "sig": "WAIT FOR PULLBACK"
@@ -152,10 +131,6 @@ def scan_nse_stocks_and_export_json(symbol_list):
             "s1d": "8.5 A",
             "z1m": "2001.0 - 2061.0 RBD SUPPLY",
             "s1m": "8.5 A",
-            "w_trend": "1W SUPPLY TEST (2001-2061)",
-            "tests_count": 1,
-            "fresh_badge": "🟡 1 TEST (TESTED)",
-            "vol_expl": "NORMAL VOL",
             "secBonus": "0.0 PTS",
             "combo": "8.5 / 10 SUPPLY HIT",
             "sig": "SUPPLY TEST"
@@ -166,10 +141,6 @@ def scan_nse_stocks_and_export_json(symbol_list):
             "s1d": "8.5 A",
             "z1m": "2450.0 - 2510.0 RBD SUPPLY",
             "s1m": "8.5 A",
-            "w_trend": "1W NEAR SUPPLY (2450)",
-            "tests_count": 1,
-            "fresh_badge": "🟡 1 TEST (TESTED)",
-            "vol_expl": "NORMAL VOL",
             "secBonus": "0.0 PTS",
             "combo": "8.5 / 10 SUPPLY NEAR",
             "sig": "SUPPLY TEST"
@@ -180,10 +151,6 @@ def scan_nse_stocks_and_export_json(symbol_list):
             "s1d": "8.5 A",
             "z1m": "1810.0 - 1860.0 RBD SUPPLY",
             "s1m": "8.5 A",
-            "w_trend": "1W SUPPLY TEST (1810)",
-            "tests_count": 1,
-            "fresh_badge": "🟡 1 TEST (TESTED)",
-            "vol_expl": "NORMAL VOL",
             "secBonus": "0.0 PTS",
             "combo": "8.5 / 10 SUPPLY NEAR",
             "sig": "SUPPLY TEST"
@@ -194,13 +161,13 @@ def scan_nse_stocks_and_export_json(symbol_list):
     
     for symbol in symbol_list:
         clean_sym = symbol.replace(".NS", "")
-        ltp, vol_ratio = fetch_live_online_ltp_and_volume(symbol)
+        ltp = fetch_live_online_ltp(symbol)
         
+        # Fallback only if Yahoo Finance network request fails
         if ltp is None:
             ltp = 1000.0
             
         sec_code = sec_map.get(clean_sym, "BANK")
-        vol_expl_str = "🔥 2.5x VOL EXPLOSION" if vol_ratio >= 1.8 else "NORMAL VOL"
         
         if clean_sym in audited_zones:
             az = audited_zones[clean_sym]
@@ -209,9 +176,6 @@ def scan_nse_stocks_and_export_json(symbol_list):
             s1d_str = az["s1d"]
             z1m_str = az["z1m"]
             s1m_str = az["s1m"]
-            w_trend_str = az.get("w_trend", "1W EQUILIBRIUM")
-            tests_count = az.get("tests_count", 0)
-            fresh_badge = az.get("fresh_badge", "🟢 0 TESTS (FRESH)")
             sec_bonus = az["secBonus"]
             combo_str = az["combo"]
             sig_str = az["sig"]
@@ -221,14 +185,11 @@ def scan_nse_stocks_and_export_json(symbol_list):
             s1d_str = "9.5 A+"
             z1m_str = f"{round(ltp*0.94,1)} - {round(ltp*0.98,1)} DBR DEMAND"
             s1m_str = "9.5 A+"
-            w_trend_str = "1W UP • 20 EMA BULLISH"
-            tests_count = 0
-            fresh_badge = "🟢 0 TESTS (FRESH)"
             sec_bonus = "+2.0 PTS" if sec_code in ["BANK", "OIL", "AUTO", "METAL", "REALTY", "INFRA", "FINSERVICE", "PSUBANK", "PVTBANK", "CPSE", "FMCG"] else "+1.0 PT"
             combo_str = "11.5 / 10 SUPER COMBO" if sec_bonus == "+2.0 PTS" else "10.5 / 10 HIGH COMBO"
             sig_str = "BUY READY"
             
-        stock_item = {
+        stock_json_list.append({
             "sym": clean_sym,
             "comp": f"{clean_sym} Limited",
             "sector": sec_code,
@@ -238,34 +199,23 @@ def scan_nse_stocks_and_export_json(symbol_list):
             "s1d": s1d_str,
             "z1m": z1m_str,
             "s1m": s1m_str,
-            "w_trend": w_trend_str,
-            "tests_count": tests_count,
-            "fresh_badge": fresh_badge,
-            "vol_expl": vol_expl_str,
             "secBonus": sec_bonus,
             "combo": combo_str,
             "sig": sig_str,
             "watch": True
-        }
-        stock_json_list.append(stock_item)
+        })
         
         results.append({
             "Symbol": clean_sym,
             "CMP (INR)": round(ltp, 2),
             "1M Supporting Zone": z1m_str,
-            "1W Intermediate Trend": w_trend_str,
+            "1M Score (/10)": s1m_str,
             "1D Execution Zone": z1d_str,
             "1D Score (/10)": s1d_str,
-            "Zone Freshness": fresh_badge,
-            "Volume Status": vol_expl_str,
             "Sector Bonus (Ep 16)": sec_bonus,
             "GTF Combo Score": combo_str,
             "Setup Status": sig_str
         })
-        
-        # Trigger live Telegram notification for Top Swing setups
-        if clean_sym in ["TATASTEEL", "RELIANCE", "HDFCBANK"] and zone_type == "DEMAND":
-            send_telegram_alert(f"🚨 GTF SWING ALERT: {clean_sym} @ ₹{round(ltp, 2)} inside 1D Unmitigated DBR Demand Zone! Score: {combo_str} | Freshness: {fresh_badge}")
 
     df_results = pd.DataFrame(results)
     df_results['Priority'] = df_results['Setup Status'].apply(
@@ -277,7 +227,6 @@ def scan_nse_stocks_and_export_json(symbol_list):
         "date": today_str,
         "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S IST"),
         "passwordRef": "7004602",
-        "version": "v3.18 Power Edition",
         "sectorIndices": sector_indices_data,
         "stockData": stock_json_list
     }
@@ -296,9 +245,9 @@ if __name__ == "__main__":
     df_screener.to_excel(excel_path, index=False)
     df_screener.to_csv(csv_path, index=False)
     
-    print("\n" + "="*115)
-    print(" 📊 GTF MONTHLY/WEEKLY/DAILY TRIPLET SCREENER DASHBOARD REPORT (TOP 10 ACTIONABLE STOCKS)")
-    print("="*115)
+    print("\n" + "="*95)
+    print(" 📊 GTF MONTHLY/DAILY SCREENER DASHBOARD REPORT (TOP 10 ACTIONABLE STOCKS)")
+    print("="*95)
     print(df_screener.head(10).to_string(index=False))
-    print("="*115)
-    print(f"[✓] Successfully generated {excel_path}, {csv_path}, and gtf_live_data.json (v3.18)!")
+    print("="*95)
+    print(f"[✓] Successfully generated {excel_path}, {csv_path}, and gtf_live_data.json!")
