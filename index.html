@@ -511,6 +511,27 @@
                 min-width: 140px;
             }
         }
+    
+        /* INTERACTIVE LOT SIZE CALCULATOR MODAL CSS */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85); display: none; justify-content: center;
+            align-items: center; z-index: 10000;
+        }
+        .calc-modal {
+            background: #0f172a; border: 2px solid #00E676; border-radius: 12px;
+            width: 90%; max-width: 520px; padding: 22px; color: #fff;
+            box-shadow: 0 10px 30px rgba(0, 230, 118, 0.25);
+            position: relative;
+        }
+        .calc-title { font-size: 18px; font-weight: 800; color: #00E676; margin-bottom: 15px; }
+        .calc-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .calc-input { background: #1e293b; border: 1px solid #334155; color: #fff; padding: 6px 10px; border-radius: 6px; width: 130px; text-align: right; font-weight: bold; }
+        .calc-result-box { background: rgba(0, 230, 118, 0.1); border: 1px solid #00E676; border-radius: 8px; padding: 14px; margin-top: 15px; }
+        .calc-close-btn { background: #dc2626; color: #fff; border: none; padding: 10px 16px; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 15px; width: 100%; font-size: 14px; }
+        .calc-btn { background: #00E676; color: #000; border: none; font-weight: 700; font-size: 11.5px; padding: 6px 12px; border-radius: 6px; cursor: pointer; white-space: nowrap; transition: 0.2s; }
+        .calc-btn:hover { background: #00c853; transform: scale(1.03); }
+
     </style>
 </head>
 <body>
@@ -776,18 +797,20 @@
                     <tr>
                         <th onclick="sortTable(0)">SYMBOL ⇕</th>
                         <th onclick="sortTable(1)">COMPANY</th>
-                        <th onclick="sortTable(2)">INDEX</th>
-                        <th onclick="sortTable(3)">SECTOR</th>
-                        <th onclick="sortTable(4)">TYPE</th>
-                        <th onclick="sortTable(5)">STATUS</th>
-                        <th onclick="sortTable(6)">LTP</th>
-                        <th onclick="sortTable(7)">ZONE TOP</th>
-                        <th onclick="sortTable(8)">ZONE BOT</th>
-                        <th onclick="sortTable(9)">GAP%</th>
-                        <th class="extra-col" onclick="sortTable(10)" title="Daily Timeframe Execution Trade Score">1D SCORE ⭐</th>
-                        <th class="extra-col" onclick="sortTable(11)" title="Monthly Timeframe Supporting Trade Score">1M SCORE ⭐</th>
-                        <th onclick="sortTable(12)">SIGNAL</th>
-                        <th>WATCH</th>
+                        <th onclick="sortTable(2)">SECTOR INDEX</th>
+                        <th onclick="sortTable(3)">TYPE</th>
+                        <th onclick="sortTable(4)">LTP (INR)</th>
+                        <th onclick="sortTable(5)">1D EXEC ZONE</th>
+                        <th onclick="sortTable(6)">1D SCORE ⭐</th>
+                        <th onclick="sortTable(7)">1M SUPPORT ZONE</th>
+                        <th onclick="sortTable(8)">1M SCORE ⭐</th>
+                        <th onclick="sortTable(9)">1W TREND 🌐</th>
+                        <th onclick="sortTable(10)">FRESHNESS 🟢</th>
+                        <th onclick="sortTable(11)">VOLUME 🔥</th>
+                        <th onclick="sortTable(12)">SECTOR BONUS</th>
+                        <th onclick="sortTable(13)">GTF COMBO SCORE 🚀</th>
+                        <th onclick="sortTable(14)">SETUP STATUS</th>
+                        <th style="text-align: center;">CALCULATOR 🧮</th>
                     </tr>
                 </thead>
                 <tbody id="table-body">
@@ -1103,5 +1126,5 @@
         </div>
     </div>
 
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a2a0be63782bcf34',t:'MTc4NjU1MDk1OA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</body>
 </html>
