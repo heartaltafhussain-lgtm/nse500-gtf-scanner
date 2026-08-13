@@ -1,10 +1,13 @@
-name: GTF Nifty 500 Daily Screener (Monthly Support + Daily Execution)
+name: My Swing Dashboard — NSE 500 Auto-Filter
 
 on:
   schedule:
     # Monday-Friday 10:15 UTC = 3:45 PM IST (after NSE close)
-    - cron: '15 10 * * 1-5'
+    - cron: "15 10 * * 1-5"
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   run-gtf-scanner:
@@ -34,10 +37,10 @@ jobs:
 
       - name: Commit live JSON + Excel back to repo (GitHub Pages feed)
         run: |
-          git config --global user.name "GTF Automated Scanner"
-          git config --global user.email "gtf-scanner@github-actions.local"
+          git config --global user.name "My Swing Dashboard Bot"
+          git config --global user.email "swing-dashboard@github-actions.local"
           git add gtf_live_data.json nifty500_universe.csv NIFTY500_GTF_Dashboard.xlsx NIFTY500_GTF_Dashboard.csv
-          git commit -m "Automated NSE 500 GTF auto-filter scan [$(date +'%Y-%m-%d')]" || echo "No changes to commit"
+          git commit -m "Auto-filter scan [$(date +'%Y-%m-%d')]" || echo "No changes to commit"
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -45,7 +48,7 @@ jobs:
       - name: Upload scan artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: NIFTY500_GTF_Dashboard_Excel
+          name: swing-dashboard-scan
           path: |
             gtf_live_data.json
             NIFTY500_GTF_Dashboard.xlsx
