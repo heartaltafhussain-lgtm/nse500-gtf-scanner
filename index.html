@@ -660,7 +660,7 @@
             <div class="header-badges">
                 <!-- 100% AUTOMATIC LIVE CURRENT DATE BADGE -->
                 <div class="badge date-badge" id="live-date-badge">● 2026-08-10</div>
-                <div class="badge eod-badge">📊 EOD Confirmed Scan • v3.18.1 ROW FIX</div>
+                <div class="badge eod-badge">📊 EOD Confirmed Scan • v3.19 AUTO-FILTER</div>
                 <button class="btn-refresh" onclick="refreshDashboard()" title="Refresh Dashboard Data & Table">
                     <span id="refresh-icon">🔄</span> Refresh
                 </button>
@@ -717,104 +717,20 @@
                         <th style="padding: 12px 14px; color: #00E676; font-size: 11px; text-transform: uppercase; text-align: center;">ACTION</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <!-- ROW 1: TATASTEEL -->
-                    <tr style="border-bottom: 1px solid #1e3a2e; background: rgba(19, 23, 34, 0.9);">
-                        <td style="padding: 14px; vertical-align: middle;">
-                            <a href="https://in.tradingview.com/chart/?symbol=NSE%3ATATASTEEL" target="_blank" style="font-size: 16px; font-weight: 800; color: #fff; text-decoration: none;" title="Click to open TATASTEEL chart in TradingView">TATASTEEL ↗</a>
-                            <div style="color: #00E676; font-size: 11px; font-weight: 700; margin-top: 4px;">NIFTY METAL (+2.0 PTS)</div>
-                        </td>
-                        <td style="padding: 14px; vertical-align: middle;">
-                            <div style="font-size: 16px; font-weight: 800; color: #00E676;">₹190.24</div>
-                            <span style="background: linear-gradient(90deg, #00C853, #00E676); color: #000; font-weight: 800; font-size: 11px; padding: 3px 8px; border-radius: 12px; display: inline-block; margin-top: 6px;">11.5/10 🚀 SUPER COMBO</span>
-                        </td>
-                        <td style="padding: 14px; font-size: 12.5px; line-height: 1.6; vertical-align: middle;">
-                            <div><strong>1D Exec:</strong> <span style="color: #4ade80;">185.8 - 189.7 DBR DEMAND [9.5 A+]</span></div>
-                            <div><strong>1M Support:</strong> <span style="color: #86efac;">180.0 - 188.5 DBR DEMAND [9.5 A+]</span></div>
-                        </td>
-                        <td style="padding: 14px; font-size: 12.5px; line-height: 1.6; vertical-align: middle;">
-                            <div>🟢 <strong>Buy Entry:</strong> ₹188.50 – ₹189.70</div>
-                            <div>🛑 <strong>Strict SL:</strong> <span style="color: #f87171;">₹184.80</span> (Distal ATR buffer)</div>
-                            <div>🎯 <strong>Target 1:</strong> ₹198.00 | <strong>Target 2:</strong> ₹205.00 (1:3+ R:R)</div>
-                        </td>
-                        <td style="padding: 14px; vertical-align: middle;">
-                            <div style="background: rgba(0, 230, 118, 0.12); border: 1px solid #00E676; border-radius: 8px; padding: 8px 12px; text-align: center;">
-                                <div style="font-size: 14px; font-weight: 800; color: #00E676;">~350–400 Shares</div>
-                                <div style="font-size: 11px; color: #a3e6be; margin-top: 2px;">₹8–10 move = ₹3,000+ Net</div>
-                            </div>
-                        </td>
-                        <td style="padding: 14px; text-align: center; vertical-align: middle;">
-                            <button class="calc-btn" onclick="openCalcModal(&#39;TATASTEEL&#39;, 189.0, 185.0)" style="background:#00E676;color:#000;border:none;font-weight:800;font-size:12px;padding:10px 16px;border-radius:6px;cursor:pointer;white-space:nowrap;box-shadow: 0 4px 12px rgba(0,230,118,0.3);" title="Open Lot Size & Risk Calculator for TATASTEEL">🧮 Qty Calc</button>
-                        </td>
-                    </tr>
-
-                    <!-- ROW 2: RELIANCE -->
-                    <tr style="border-bottom: 1px solid #1e3a2e; background: rgba(15, 20, 28, 0.9);">
-                        <td style="padding: 14px; vertical-align: middle;">
-                            <a href="https://in.tradingview.com/chart/?symbol=NSE%3ARELIANCE" target="_blank" style="font-size: 16px; font-weight: 800; color: #fff; text-decoration: none;" title="Click to open RELIANCE chart in TradingView">RELIANCE ↗</a>
-                            <div style="color: #00E676; font-size: 11px; font-weight: 700; margin-top: 4px;">NIFTY ENERGY (+2.0 PTS)</div>
-                        </td>
-                        <td style="padding: 14px; vertical-align: middle;">
-                            <div style="font-size: 16px; font-weight: 800; color: #00E676;">₹1327.30</div>
-                            <span style="background: linear-gradient(90deg, #00C853, #00E676); color: #000; font-weight: 800; font-size: 11px; padding: 3px 8px; border-radius: 12px; display: inline-block; margin-top: 6px;">11.5/10 🚀 SUPER COMBO</span>
-                        </td>
-                        <td style="padding: 14px; font-size: 12.5px; line-height: 1.6; vertical-align: middle;">
-                            <div><strong>1D Exec:</strong> <span style="color: #4ade80;">1285.2 - 1311.8 DBR DEMAND [9.5 A+]</span></div>
-                            <div><strong>1M Support:</strong> <span style="color: #86efac;">1240.0 - 1295.0 DBR DEMAND [9.5 A+]</span></div>
-                        </td>
-                        <td style="padding: 14px; font-size: 12.5px; line-height: 1.6; vertical-align: middle;">
-                            <div>🟢 <strong>Buy Entry:</strong> ₹1300.00 – ₹1311.80</div>
-                            <div>🛑 <strong>Strict SL:</strong> <span style="color: #f87171;">₹1280.00</span></div>
-                            <div>🎯 <strong>Target 1:</strong> ₹1360.00 | <strong>Target 2:</strong> ₹1395.00 (1:3+ R:R)</div>
-                        </td>
-                        <td style="padding: 14px; vertical-align: middle;">
-                            <div style="background: rgba(0, 230, 118, 0.12); border: 1px solid #00E676; border-radius: 8px; padding: 8px 12px; text-align: center;">
-                                <div style="font-size: 14px; font-weight: 800; color: #00E676;">~60–70 Shares</div>
-                                <div style="font-size: 11px; color: #a3e6be; margin-top: 2px;">₹50 move = ₹3,000+ Net</div>
-                            </div>
-                        </td>
-                        <td style="padding: 14px; text-align: center; vertical-align: middle;">
-                            <button class="calc-btn" onclick="openCalcModal(&#39;RELIANCE&#39;, 1310.0, 1285.0)" style="background:#00E676;color:#000;border:none;font-weight:800;font-size:12px;padding:10px 16px;border-radius:6px;cursor:pointer;white-space:nowrap;box-shadow: 0 4px 12px rgba(0,230,118,0.3);" title="Open Lot Size & Risk Calculator for RELIANCE">🧮 Qty Calc</button>
-                        </td>
-                    </tr>
-
-                    <!-- ROW 3: HDFCBANK -->
-                    <tr style="background: rgba(19, 23, 34, 0.9);">
-                        <td style="padding: 14px; vertical-align: middle;">
-                            <a href="https://in.tradingview.com/chart/?symbol=NSE%3AHDFCBANK" target="_blank" style="font-size: 16px; font-weight: 800; color: #fff; text-decoration: none;" title="Click to open HDFCBANK chart in TradingView">HDFCBANK ↗</a>
-                            <div style="color: #00E676; font-size: 11px; font-weight: 700; margin-top: 4px;">NIFTY BANK (+2.0 PTS)</div>
-                        </td>
-                        <td style="padding: 14px; vertical-align: middle;">
-                            <div style="font-size: 16px; font-weight: 800; color: #00E676;">₹730.65</div>
-                            <span style="background: linear-gradient(90deg, #00C853, #00E676); color: #000; font-weight: 800; font-size: 11px; padding: 3px 8px; border-radius: 12px; display: inline-block; margin-top: 6px;">11.5/10 🚀 SUPER COMBO</span>
-                        </td>
-                        <td style="padding: 14px; font-size: 12.5px; line-height: 1.6; vertical-align: middle;">
-                            <div><strong>1D Exec:</strong> <span style="color: #4ade80;">708.7 - 723.3 DBR DEMAND [9.5 A+]</span></div>
-                            <div><strong>1M Support:</strong> <span style="color: #86efac;">690.0 - 718.0 DBR DEMAND [9.5 A+]</span></div>
-                        </td>
-                        <td style="padding: 14px; font-size: 12.5px; line-height: 1.6; vertical-align: middle;">
-                            <div>🟢 <strong>Buy Entry:</strong> ₹718.00 – ₹723.30</div>
-                            <div>🛑 <strong>Strict SL:</strong> <span style="color: #f87171;">₹705.00</span></div>
-                            <div>🎯 <strong>Target 1:</strong> ₹750.00 | <strong>Target 2:</strong> ₹775.00 (1:3+ R:R)</div>
-                        </td>
-                        <td style="padding: 14px; vertical-align: middle;">
-                            <div style="background: rgba(0, 230, 118, 0.12); border: 1px solid #00E676; border-radius: 8px; padding: 8px 12px; text-align: center;">
-                                <div style="font-size: 14px; font-weight: 800; color: #00E676;">~100–120 Shares</div>
-                                <div style="font-size: 11px; color: #a3e6be; margin-top: 2px;">₹30 move = ₹3,000+ Net</div>
-                            </div>
-                        </td>
-                        <td style="padding: 14px; text-align: center; vertical-align: middle;">
-                            <button class="calc-btn" onclick="openCalcModal(&#39;HDFCBANK&#39;, 720.0, 708.0)" style="background:#00E676;color:#000;border:none;font-weight:800;font-size:12px;padding:10px 16px;border-radius:6px;cursor:pointer;white-space:nowrap;box-shadow: 0 4px 12px rgba(0,230,118,0.3);" title="Open Lot Size & Risk Calculator for HDFCBANK">🧮 Qty Calc</button>
-                        </td>
-                    </tr>
+                <tbody id="top3-body">
+                    <tr><td colspan="6" style="padding:18px;color:#94a3b8;text-align:center;font-weight:600;">Live auto-filter se Top 3 nikal rahe hain…</td></tr>
                 </tbody>
             </table>
             </div>
         </div>
 
         <!-- Section 2 Title -->
+        <div id="scan-stats-banner" style="margin: 0 0 16px 0; padding: 12px 16px; border-radius: 10px; border: 1px solid #1f6f4a; background: rgba(0,230,118,0.08); color: #a7f3d0; font-size: 13px; font-weight: 700;">
+            🔄 Auto-filter standby — live JSON load hote hi Nifty 500 se aaj ke IN/NEAR zone stocks aayenge.
+        </div>
+
         <div class="section-title">
-            <span>🟢 2. Filter & Screen NSE Stocks by Selected Sector (42+ Heavyweights • 100% Audited Live Real Prices)</span>
+            <span id="section2-title">🟢 2. AUTO-FILTERED NSE 500 ZONE STOCKS (LIVE SCAN — LIST BADLEGI)</span>
         </div>
 
         <!-- Filter & Search Bar -->
@@ -905,7 +821,7 @@
 
         <div class="footer">
             <div>Showing <span id="row-count">0</span> stocks • GTF Episode 16 Sectoral Analysis Screener (<span id="footer-date-text">2026-08-13</span>)</div>
-            <div>NSE Nifty 500 • Execution: Daily (1D) | Supporting: Monthly (1M) | All 42+ Stocks 100% Live Audited</div>
+            <div>NSE Nifty 500 AUTO-FILTER • 1D execution + 1M support • sirf aaj ke IN/NEAR zone stocks</div>
         </div>
     </div>
 
@@ -1005,87 +921,42 @@
         // ================================================================
         // 42+ TOP NSE STOCKS (100% AUDITED TO LIVE NSE CMPs)
         // ================================================================
-        let stockData = [
-            // METAL (100% Audited CMPs)
-            { sym: "TATASTEEL",  comp: "Tata Steel Ltd",         sector: "METAL",       type: "DEMAND", ltp: 191.60,  z1d: "185.0 - 189.5 DR DEMAND",  s1d: "9.5 A+", z1m: "178.0 - 188.0 DBR DEMAND", s1m: "9.5 A+", secBonus: "+2.0 PTS", combo: "11.5 / 10 🚀 SUPER COMBO", sig: "BUY READY" },
-            { sym: "JSWSTEEL",   comp: "JSW Steel Ltd",          sector: "METAL",       type: "DEMAND", ltp: 1299.50, z1d: "1260 - 1290 DBR DEMAND",   s1d: "9.0 A+", z1m: "1220 - 1285 DBR DEMAND",  s1m: "9.0 A+", secBonus: "+2.0 PTS", combo: "11.0 / 10 🚀 SUPER COMBO", sig: "BUY READY" },
-            { sym: "SAIL",       comp: "Steel Authority India",  sector: "METAL",       type: "DEMAND", ltp: 178.80,  z1d: "172.0 - 176.5 DR DEMAND",  s1d: "9.0 A+", z1m: "165.0 - 175.0 DBR DEMAND", s1m: "9.0 A+", secBonus: "+2.0 PTS", combo: "11.0 / 10 🚀 SUPER COMBO", sig: "BUY READY" },
-            { sym: "HINDALCO",   comp: "Hindalco Industries",    sector: "METAL",       type: "DEMAND", ltp: 685.20,  z1d: "660 - 680 DBR DEMAND",     s1d: "9.0 A+", z1m: "640 - 675 DBR DEMAND",   s1m: "9.0 A+", secBonus: "+2.0 PTS", combo: "11.0 / 10 🚀 SUPER COMBO", sig: "BUY READY" },
-            { sym: "VEDL",       comp: "Vedanta Limited",        sector: "METAL",       type: "DEMAND", ltp: 465.30,  z1d: "445 - 460 DBR DEMAND",     s1d: "8.5 A",  z1m: "420 - 455 DBR DEMAND",   s1m: "8.5 A",  secBonus: "+2.0 PTS", combo: "10.5 / 10 🔥 HIGH COMBO",  sig: "BUY READY" },
-
-            // PHARMA / HEALTHCARE (100% Audited CMPs)
-            { sym: "SUNPHARMA",  comp: "Sun Pharma Inds",        sector: "PHARMA",      type: "DEMAND", ltp: 1945.00, z1d: "1890 - 1935 DBR DEMAND",   s1d: "9.0 A+", z1m: "1820 - 1920 DBR DEMAND",  s1m: "8.5 A",  secBonus: "+1.0 PT",  combo: "10.0 / 10 ⭐ SOLID COMBO", sig: "BUY READY" },
-            { sym: "DRREDDY",    comp: "Dr Reddys Labs",         sector: "PHARMA",      type: "DEMAND", ltp: 6890.40, z1d: "6700 - 6850 DBR DEMAND",   s1d: "8.5 A",  z1m: "6500 - 6800 DBR DEMAND",  s1m: "8.5 A",  secBonus: "+1.0 PT",  combo: "9.5 / 10 ⭐ SOLID COMBO",  sig: "BUY READY" },
-            { sym: "CIPLA",      comp: "Cipla Limited",          sector: "PHARMA",      type: "DEMAND", ltp: 1580.10, z1d: "1530 - 1570 DBR DEMAND",   s1d: "8.5 A",  z1m: "1490 - 1560 DBR DEMAND",  s1m: "8.5 A",  secBonus: "+1.0 PT",  combo: "9.5 / 10 ⭐ SOLID COMBO",  sig: "BUY READY" },
-            { sym: "DIVISLAB",   comp: "Divis Laboratories",     sector: "PHARMA",      type: "DEMAND", ltp: 4520.60, z1d: "4380 - 4490 DBR DEMAND",   s1d: "8.5 A",  z1m: "4250 - 4460 DBR DEMAND",  s1m: "8.5 A",  secBonus: "+1.0 PT",  combo: "9.5 / 10 ⭐ SOLID COMBO",  sig: "BUY READY" },
-            { sym: "APOLLOHOSP", comp: "Apollo Hospitals Ltd",   sector: "HEALTHCARE",  type: "DEMAND", ltp: 6620.40, z1d: "6450 - 6580 DBR DEMAND",   s1d: "8.5 A",  z1m: "6300 - 6500 DBR DEMAND",  s1m: "8.0 A",  secBonus: "+1.0 PT",  combo: "9.5 / 10 ⭐ SOLID COMBO",  sig: "BUY READY" },
-
-            // BANK / PVTBANK / PSUBANK / FINSERVICE (100% Audited CMPs)
-            { sym: "SBIN",       comp: "State Bank of India",    sector: "PSUBANK",     type: "EQUILIBRIUM", ltp: 1082.00, z1d: "1040.0 - 1050.0 DR DEMAND (WAIT)", s1d: "7.0 A",  z1m: "1040.0 - 1100.0 RD SUPPLY", s1m: "6.0 B",  secBonus: "+1.0 PT",  combo: "8.0 / 10 WAIT FOR PULLBACK", sig: "WAIT FOR PULLBACK" },
-            { sym: "HDFCBANK",   comp: "HDFC Bank Ltd",          sector: "BANK",        type: "DEMAND", ltp: 730.65,  z1d: "710 - 726 DR DEMAND",      s1d: "9.5 A+", z1m: "695 - 720 DR DEMAND",     s1m: "9.5 A+", secBonus: "+2.0 PTS", combo: "11.5 / 10 🚀 SUPER COMBO", sig: "BUY READY" },
-            { sym: "ICICIBANK",  comp: "ICICI Bank Ltd",         sector: "PVTBANK",     type: "SUPPLY", ltp: 1431.80, z1d: "1430.0 - 1460.0 RBD SUPPLY", s1d: "8.5 A",  z1m: "1430.0 - 1500.0 RBD SUPPLY", s1m: "8.5 A",  secBonus: "0.0 PTS",  combo: "8.5 / 10 SUPPLY HIT", sig: "SUPPLY TEST" },
-            { sym: "AXISBANK",   comp: "Axis Bank Ltd",          sector: "PVTBANK",     type: "DEMAND", ltp: 1245.60, z1d: "1210 - 1240 RBR DEMAND",   s1d: "8.5 A",  z1m: "1180 - 1230 DR DEMAND",   s1m: "9.0 A+", secBonus: "+2.0 PTS", combo: "10.5 / 10 🔥 HIGH COMBO",  sig: "BUY READY" },
-            { sym: "BAJFINANCE", comp: "Bajaj Finance Ltd",      sector: "FINSERVICE",  type: "DEMAND", ltp: 6940.50, z1d: "6780 - 6900 DBR DEMAND",   s1d: "9.0 A+", z1m: "6650 - 6880 DBR DEMAND",  s1m: "9.0 A+", secBonus: "+2.0 PTS", combo: "11.0 / 10 🚀 SUPER COMBO", sig: "BUY READY" },
-            { sym: "BAJAJFINSV", comp: "Bajaj Finserv Ltd",      sector: "FINSERVICE",  type: "SUPPLY", ltp: 2021.30, z1d: "2050 - 2090 RD SUPPLY",    s1d: "7.5 A",  z1m: "1980 - 2040 RBD SUPPLY", s1m: "8.5 A",  secBonus: "0.0 PTS",  combo: "8.5 / 10 ⚠️ SUPPLY NEAR", sig: "SUPPLY TEST" },
-            { sym: "KOTAKBANK",  comp: "Kotak Mahindra Bank",    sector: "BANK",        type: "DEMAND", ltp: 1785.40, z1d: "1740 - 1770 DBR DEMAND",   s1d: "8.5 A",  z1m: "1700 - 1760 DBR DEMAND",  s1m: "8.5 A",  secBonus: "+2.0 PTS", combo: "10.5 / 10 🔥 HIGH COMBO",  sig: "BUY READY" },
-            { sym: "PNB",        comp: "Punjab National Bank",   sector: "PSUBANK",     type: "DEMAND", ltp: 128.50,  z1d: "122 - 127 DBR DEMAND",     s1d: "8.5 A",  z1m: "115 - 125 DBR DEMAND",    s1m: "8.5 A",  secBonus: "+2.0 PTS", combo: "10.5 / 10 🔥 HIGH COMBO",  sig: "BUY READY" },
-            { sym: "BANKBARODA", comp: "Bank of Baroda",         sector: "PSUBANK",     type: "DEMAND", ltp: 265.40,  z1d: "258 - 264 DBR DEMAND",     s1d: "8.5 A",  z1m: "248 - 262 DBR DEMAND",    s1m: "8.5 A",  secBonus: "+2.0 PTS", combo: "10.5 / 10 🔥 HIGH COMBO",  sig: "BUY READY" },
-            { sym: "INDUSINDBK", comp: "IndusInd Bank Ltd",      sector: "BANK",        type: "DEMAND", ltp: 1485.30, z1d: "1440 - 1475 DBR DEMAND",   s1d: "8.0 A",  z1m: "1400 - 1460 DBR DEMAND",  s1m: "8.5 A",  secBonus: "+2.0 PTS", combo: "10.0 / 10 🔥 HIGH COMBO",  sig: "BUY READY" },
-
-            // AUTO (100% Audited CMPs)
-            { sym: "TATAMOTORS", comp: "Tata Motors Ltd",        sector: "AUTO",        type: "DEMAND", ltp: 436.80,  z1d: "415 - 432 DBR DEMAND",     s1d: "9.5 A+", z1m: "400 - 428 DBR DEMAND",   s1m: "9.5 A+", secBonus: "+2.0 PTS", combo: "11.5 / 10 🚀 SUPER COMBO", sig: "BUY READY" },
-            { sym: "M&M",        comp: "Mahindra & Mahindra",    sector: "AUTO",        type: "DEMAND", ltp: 2890.60, z1d: "2820 - 2875 DBR DEMAND",   s1d: "9.5 A+", z1m: "2750 - 2860 DBR DEMAND",  s1m: "9.0 A+", secBonus: "+2.0 PTS", combo: "11.5 / 10 🚀 SUPER COMBO", sig: "BUY READY" },
-            { sym: "MARUTI",     comp: "Maruti Suzuki India",    sector: "AUTO",        type: "DEMAND", ltp: 12450.0, z1d: "12100 - 12380 RBR DEMAND", s1d: "8.5 A",  z1m: "11800 - 12300 DR DEMAND", s1m: "9.0 A+", secBonus: "+2.0 PTS", combo: "10.5 / 10 🔥 HIGH COMBO",  sig: "BUY READY" },
-            { sym: "BAJAJ-AUTO", comp: "Bajaj Auto Limited",     sector: "AUTO",        type: "DEMAND", ltp: 9840.00, z1d: "9600 - 9800 DBR DEMAND",   s1d: "9.0 A+", z1m: "9400 - 9750 DBR DEMAND",  s1m: "9.0 A+", secBonus: "+2.0 PTS", combo: "11.0 / 10 🚀 SUPER COMBO", sig: "BUY READY" },
-            { sym: "EICHERMOT",  comp: "Eicher Motors Ltd",      sector: "AUTO",        type: "DEMAND", ltp: 4720.50, z1d: "4600 - 4690 DBR DEMAND",   s1d: "8.5 A",  z1m: "4500 - 4680 DBR DEMAND",  s1m: "8.5 A",  secBonus: "+2.0 PTS", combo: "10.5 / 10 🔥 HIGH COMBO",  sig: "BUY READY" },
-            { sym: "HEROMOTOCO", comp: "Hero MotoCorp Ltd",      sector: "AUTO",        type: "DEMAND", ltp: 5410.20, z1d: "5250 - 5380 DBR DEMAND",   s1d: "8.5 A",  z1m: "5100 - 5350 DBR DEMAND",  s1m: "8.0 A",  secBonus: "+2.0 PTS", combo: "10.5 / 10 🔥 HIGH COMBO",  sig: "BUY READY" },
-
-            // OIL / ENERGY / CPSE (100% Audited CMPs)
-            { sym: "RELIANCE",   comp: "Reliance Industries",    sector: "OIL",         type: "DEMAND", ltp: 1325.00, z1d: "1280 - 1315 DBR DEMAND",   s1d: "9.5 A+", z1m: "1250 - 1300 DBR DEMAND",  s1m: "9.0 A+", secBonus: "+2.0 PTS", combo: "11.5 / 10 🚀 SUPER COMBO", sig: "BUY READY" },
-            { sym: "ONGC",       comp: "Oil & Natural Gas Corp", sector: "OIL",         type: "DEMAND", ltp: 325.40,  z1d: "315 - 322 DBR DEMAND",     s1d: "9.0 A+", z1m: "305 - 320 DBR DEMAND",    s1m: "9.0 A+", secBonus: "+2.0 PTS", combo: "11.0 / 10 🚀 SUPER COMBO", sig: "BUY READY" },
-            { sym: "NTPC",       comp: "NTPC Limited",           sector: "CPSE",        type: "DEMAND", ltp: 412.30,  z1d: "398 - 408 DBR DEMAND",     s1d: "9.0 A+", z1m: "385 - 405 DBR DEMAND",    s1m: "9.0 A+", secBonus: "+2.0 PTS", combo: "11.0 / 10 🚀 SUPER COMBO", sig: "BUY READY" },
-            { sym: "POWERGRID",  comp: "Power Grid Corp",        sector: "CPSE",        type: "DEMAND", ltp: 342.10,  z1d: "330 - 339 DBR DEMAND",     s1d: "8.5 A",  z1m: "320 - 338 DBR DEMAND",    s1m: "8.5 A",  secBonus: "+2.0 PTS", combo: "10.5 / 10 🔥 HIGH COMBO",  sig: "BUY READY" },
-            { sym: "BPCL",       comp: "Bharat Petroleum",       sector: "OIL",         type: "DEMAND", ltp: 312.40,  z1d: "302 - 310 DBR DEMAND",     s1d: "8.5 A",  z1m: "295 - 308 DBR DEMAND",    s1m: "8.5 A",  secBonus: "+2.0 PTS", combo: "10.5 / 10 🔥 HIGH COMBO",  sig: "BUY READY" },
-            { sym: "COALINDIA",  comp: "Coal India Ltd",         sector: "PSE",         type: "DEMAND", ltp: 512.60,  z1d: "495 - 508 DBR DEMAND",     s1d: "8.5 A",  z1m: "480 - 502 DBR DEMAND",    s1m: "8.0 A",  secBonus: "+1.0 PT",  combo: "9.5 / 10 ⭐ SOLID COMBO",  sig: "BUY READY" },
-
-            // IT / TECH (100% Audited CMPs)
-            { sym: "TCS",        comp: "Tata Consultancy Svs",   sector: "IT",          type: "DEMAND", ltp: 2467.10, z1d: "2410 - 2455 RBR DEMAND",   s1d: "8.5 A",  z1m: "2350 - 2440 DBR DEMAND",  s1m: "8.5 A",  secBonus: "0.0 PTS",  combo: "8.5 / 10 ✅ NORMAL",      sig: "PULLBACK" },
-            { sym: "INFY",       comp: "Infosys Ltd",            sector: "IT",          type: "SUPPLY", ltp: 1820.40, z1d: "1850 - 1900 RBD SUPPLY",   s1d: "8.5 A",  z1m: "1880 - 1950 RBD SUPPLY",  s1m: "8.5 A",  secBonus: "0.0 PTS",  combo: "8.5 / 10 ⚠️ SUPPLY NEAR", sig: "MONITOR" },
-            { sym: "HCLTECH",    comp: "HCL Technologies Ltd",   sector: "IT",          type: "DEMAND", ltp: 1740.20, z1d: "1680 - 1720 DBR DEMAND",   s1d: "8.5 A",  z1m: "1620 - 1700 DBR DEMAND",  s1m: "8.5 A",  secBonus: "0.0 PTS",  combo: "8.5 / 10 ✅ NORMAL",      sig: "PULLBACK" },
-            { sym: "WIPRO",      comp: "Wipro Limited",          sector: "IT",          type: "DEMAND", ltp: 545.10,  z1d: "525 - 540 DBR DEMAND",     s1d: "8.0 A",  z1m: "505 - 535 DBR DEMAND",    s1m: "8.0 A",  secBonus: "0.0 PTS",  combo: "8.0 / 10 ✅ NORMAL",      sig: "PULLBACK" },
-            { sym: "TECHM",      comp: "Tech Mahindra Ltd",      sector: "IT",          type: "SUPPLY", ltp: 1490.60, z1d: "1520 - 1560 RBD SUPPLY",   s1d: "8.5 A",  z1m: "1540 - 1600 RBD SUPPLY",  s1m: "8.5 A",  secBonus: "0.0 PTS",  combo: "8.5 / 10 ⚠️ SUPPLY NEAR", sig: "MONITOR" },
-            { sym: "DIXON",      comp: "Dixon Technologies",     sector: "IT",          type: "SUPPLY", ltp: 1575.41, z1d: "1620 - 1672 RBD SUPPLY",   s1d: "10.0 A+",z1m: "1650 - 1720 RBD SUPPLY",  s1m: "9.0 A+", secBonus: "0.0 PTS",  combo: "10.0 / 10 🔴 SUPPLY HIT", sig: "SELL WATCH" },
-
-            // REALTY / INFRA / FMCG / CONSUMPTION (100% Audited CMPs)
-            { sym: "DLF",        comp: "DLF Limited",            sector: "REALTY",      type: "DEMAND", ltp: 840.50,  z1d: "810 - 835 DBR DEMAND",     s1d: "9.5 A+", z1m: "790 - 830 DBR DEMAND",   s1m: "9.0 A+", secBonus: "+2.0 PTS", combo: "11.5 / 10 🚀 SUPER COMBO", sig: "BUY READY" },
-            { sym: "LARSEN",     comp: "Larsen & Toubro Ltd",    sector: "INFRA",       type: "DEMAND", ltp: 3540.00, z1d: "3450 - 3520 DBR DEMAND",   s1d: "9.0 A+", z1m: "3380 - 3500 DBR DEMAND",  s1m: "9.0 A+", secBonus: "+2.0 PTS", combo: "11.0 / 10 🚀 SUPER COMBO", sig: "BUY READY" },
-            { sym: "ITC",        comp: "ITC Limited",            sector: "FMCG",        type: "DEMAND", ltp: 498.40,  z1d: "485 - 495 DBR DEMAND",     s1d: "8.5 A",  z1m: "470 - 490 DBR DEMAND",    s1m: "8.5 A",  secBonus: "+2.0 PTS", combo: "10.5 / 10 🔥 HIGH COMBO",  sig: "BUY READY" },
-            { sym: "HINDUNILVR", comp: "Hindustan Unilever",     sector: "FMCG",        type: "DEMAND", ltp: 2740.10, z1d: "2680 - 2725 DBR DEMAND",   s1d: "8.5 A",  z1m: "2600 - 2710 DBR DEMAND",  s1m: "8.5 A",  secBonus: "+2.0 PTS", combo: "10.5 / 10 🔥 HIGH COMBO",  sig: "BUY READY" },
-            { sym: "TITAN",      comp: "Titan Company Ltd",      sector: "CONSUMPTION", type: "DEMAND", ltp: 3450.20, z1d: "3380 - 3430 DBR DEMAND",   s1d: "8.5 A",  z1m: "3300 - 3400 DBR DEMAND",  s1m: "8.5 A",  secBonus: "+1.0 PT",  combo: "9.5 / 10 ⭐ SOLID COMBO",  sig: "BUY READY" },
-            { sym: "NESTLEIND",  comp: "Nestle India Ltd",       sector: "FMCG",        type: "DEMAND", ltp: 2540.80, z1d: "2480 - 2525 DBR DEMAND",   s1d: "8.5 A",  z1m: "2400 - 2510 DBR DEMAND",  s1m: "8.0 A",  secBonus: "+2.0 PTS", combo: "10.5 / 10 🔥 HIGH COMBO",  sig: "BUY READY" }
-        ];
+        let stockData = [];
+        let top3Data = [];
+        let scanStats = null;
 
         // Try to fetch automated daily GitHub Actions JSON feed if available
+        function applyLivePayload(jsonData) {
+            if (jsonData.sectorIndices && jsonData.sectorIndices.length) {
+                sectorIndices.length = 0;
+                jsonData.sectorIndices.forEach(function (s) { sectorIndices.push(s); });
+            }
+            if (Array.isArray(jsonData.stockData)) {
+                stockData.length = 0;
+                jsonData.stockData.forEach(function (st) { stockData.push(st); });
+            }
+            top3Data = Array.isArray(jsonData.top3) ? jsonData.top3 : [];
+            scanStats = jsonData.scanStats || null;
+            renderScanStats(jsonData);
+            renderTop3(top3Data);
+            renderSectorMatrix();
+            updateHeroBanner();
+            filterTable();
+        }
+
         async function loadAutomatedJSONFeed() {
             try {
                 const cacheBuster = new Date().getTime();
                 const res = await fetch("gtf_live_data.json?t=" + cacheBuster, { cache: "no-store" });
                 if (res.ok) {
                     const jsonData = await res.json();
-                    if (jsonData.sectorIndices && jsonData.sectorIndices.length) {
-                        sectorIndices.length = 0;
-                        jsonData.sectorIndices.forEach(function (s) { sectorIndices.push(s); });
-                    }
-                    if (jsonData.stockData && jsonData.stockData.length) {
-                        stockData.length = 0;
-                        jsonData.stockData.forEach(function (st) { stockData.push(st); });
-                    }
-                    renderSectorMatrix();
-                    updateHeroBanner();
-                    filterTable();
+                    applyLivePayload(jsonData);
+                    return;
                 }
+                setTableStatus("gtf_live_data.json nahi mila. GitHub Action scan ke baad ye file upload/commit honi chahiye.", true);
             } catch (e) {
-                console.warn("Live JSON feed unavailable, using audited fallback rows.", e);
+                console.warn("Live JSON feed unavailable", e);
+                setTableStatus("Live JSON load nahi hua. Latest gtf_live_data.json GitHub pe commit karke hard-refresh karo.", true);
             }
         }
 
@@ -1177,6 +1048,72 @@
             document.getElementById("res-cap").innerText = "₹" + cap.toLocaleString();
             document.getElementById("res-t1").innerText = "₹" + t1 + " (+₹" + Math.round(qty * riskPerShare * 2).toLocaleString() + ")";
             document.getElementById("res-t2").innerText = "₹" + t2 + " (+₹" + Math.round(qty * riskPerShare * 3).toLocaleString() + " NET)";
+        }
+
+        function renderScanStats(jsonData) {
+            const el = document.getElementById("scan-stats-banner");
+            const title = document.getElementById("section2-title");
+            const st = (jsonData && jsonData.scanStats) ? jsonData.scanStats : scanStats;
+            if (!el) return;
+            if (!st) {
+                el.textContent = "🔄 Auto-filter standby — live JSON load hote hi Nifty 500 se aaj ke IN/NEAR zone stocks aayenge.";
+                return;
+            }
+            const dateStr = (jsonData && jsonData.date) ? jsonData.date : "";
+            el.innerHTML = "📡 AUTO-FILTER LIVE • Scanned <b>" + (st.scanned || 0) + "/" + (st.universe || 500) + "</b> Nifty 500"
+                + " • Aaj IN/NEAR zone: <b>" + (st.inZone || 0) + "</b>"
+                + " • DEMAND " + (st.demand || 0)
+                + " • SUPPLY " + (st.supply || 0)
+                + " • BUY READY " + (st.buyReady || 0)
+                + (dateStr ? " • " + dateStr : "")
+                + " • list har scan pe badlegi, fixed 42 names nahi";
+            if (title) {
+                title.textContent = "🟢 2. AUTO-FILTERED ZONE STOCKS (" + (st.inZone || 0) + " of " + (st.universe || 500) + " Nifty 500 • LIVE)";
+            }
+        }
+
+        function renderTop3(list) {
+            const tb = document.getElementById("top3-body");
+            if (!tb) return;
+            const rows = Array.isArray(list) ? list : [];
+            if (!rows.length) {
+                tb.innerHTML = '<tr><td colspan="6" style="padding:18px;color:#94a3b8;text-align:center;font-weight:600;">Aaj koi fresh 1W-up DEMAND swing pick nahi bana. Neeche auto-filter table dekho.</td></tr>';
+                return;
+            }
+            tb.innerHTML = "";
+            rows.forEach(function (p) {
+                const tr = document.createElement("tr");
+                tr.style.borderBottom = "1px solid #1e3a2e";
+                const qty = p.qty || 0;
+                const move = p.moveFor3k || 0;
+                const entryLo = p.entryLo;
+                const entryHi = p.entryHi;
+                const sl = p.sl;
+                tr.innerHTML =
+                    '<td style="padding:14px;vertical-align:middle;">'
+                    + '<a href="https://in.tradingview.com/chart/?symbol=NSE%3A' + encodeURIComponent(p.sym || "") + '" target="_blank" rel="noopener" style="font-size:16px;font-weight:800;color:#fff;text-decoration:none;">' + escHtml(p.sym || "") + ' ↗</a>'
+                    + '<div style="color:#00E676;font-size:11px;font-weight:700;margin-top:4px;">NIFTY_' + escHtml(p.sector || "") + ' ' + escHtml(p.secBonus || "") + '</div></td>'
+                    + '<td style="padding:14px;vertical-align:middle;"><div style="font-size:16px;font-weight:800;color:#00E676;">₹' + (Number(p.ltp || 0).toFixed(2)) + '</div>'
+                    + '<span style="background:linear-gradient(90deg,#00C853,#00E676);color:#000;font-weight:800;font-size:11px;padding:3px 8px;border-radius:12px;display:inline-block;margin-top:6px;">' + escHtml(p.combo || "") + '</span></td>'
+                    + '<td style="padding:14px;font-size:12.5px;line-height:1.6;vertical-align:middle;">'
+                    + '<div><strong>1D Exec:</strong> <span style="color:#4ade80;">' + escHtml(p.z1d || "—") + ' [' + escHtml(p.s1d || "") + ']</span></div>'
+                    + '<div><strong>1M Support:</strong> <span style="color:#86efac;">' + escHtml(p.z1m || "—") + ' [' + escHtml(p.s1m || "") + ']</span></div></td>'
+                    + '<td style="padding:14px;font-size:12.5px;line-height:1.6;vertical-align:middle;">'
+                    + '<div>🟢 <strong>Buy Entry:</strong> ₹' + entryLo + ' – ₹' + entryHi + '</div>'
+                    + '<div>🛑 <strong>Strict SL:</strong> <span style="color:#f87171;">₹' + sl + '</span></div>'
+                    + '<div>🎯 <strong>Target 1:</strong> ₹' + p.t1 + ' | <strong>Target 2:</strong> ₹' + p.t2 + ' (1:3 R:R plan)</div></td>'
+                    + '<td style="padding:14px;vertical-align:middle;"><div style="background:rgba(0,230,118,0.12);border:1px solid #00E676;border-radius:8px;padding:8px 12px;text-align:center;">'
+                    + '<div style="font-size:14px;font-weight:800;color:#00E676;">~' + qty + ' Shares</div>'
+                    + '<div style="font-size:11px;color:#a3e6be;margin-top:2px;">₹' + move + ' move ≈ ₹3,000 goal</div></div></td>'
+                    + '<td style="padding:14px;text-align:center;vertical-align:middle;"></td>';
+                const btn = document.createElement("button");
+                btn.className = "calc-btn";
+                btn.type = "button";
+                btn.textContent = "🧮 Qty Calc";
+                btn.addEventListener("click", function () { openCalcModal(p.sym, Number(entryHi), Number(sl)); });
+                tr.lastChild.appendChild(btn);
+                tb.appendChild(tr);
+            });
         }
 
         function escHtml(value) {
@@ -1444,5 +1381,5 @@
         </div>
     </div>
 
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a2a41fd67bfd7a16',t:'MTc4NjU4NjQwNw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</body>
 </html>

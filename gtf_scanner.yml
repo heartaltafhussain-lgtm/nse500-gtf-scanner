@@ -2,15 +2,15 @@ name: GTF Nifty 500 Daily Screener (Monthly Support + Daily Execution)
 
 on:
   schedule:
-    # Runs Monday-Friday at 10:15 UTC (3:45 PM IST - after NSE market close)
+    # Monday-Friday 10:15 UTC = 3:45 PM IST (after NSE close)
     - cron: '15 10 * * 1-5'
-  workflow_dispatch: # Allows manual trigger from GitHub Actions tab
+  workflow_dispatch:
 
 jobs:
   run-gtf-scanner:
     runs-on: ubuntu-latest
     env:
-      GTF_PASSWORD: "700460"
+      GTF_PASSWORD: "7004602"
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -25,25 +25,29 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run NSE 500 GTF Scanner Script
+      - name: Run NSE 500 GTF Auto-Filter Scanner
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
           python3 nse_500_gtf_scanner.py
 
-      - name: Commit & Push Updated Dashboard Excel to Repository
+      - name: Commit live JSON + Excel back to repo (GitHub Pages feed)
         run: |
           git config --global user.name "GTF Automated Scanner"
           git config --global user.email "gtf-scanner@github-actions.local"
-          git add NIFTY500_GTF_Dashboard.xlsx NIFTY500_GTF_Dashboard.csv
-          git commit -m "📊 Automated Daily NSE 500 GTF Scan [$(date +'%Y-%m-%d')]" || echo "No changes to commit"
+          git add gtf_live_data.json nifty500_universe.csv NIFTY500_GTF_Dashboard.xlsx NIFTY500_GTF_Dashboard.csv
+          git commit -m "Automated NSE 500 GTF auto-filter scan [$(date +'%Y-%m-%d')]" || echo "No changes to commit"
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Upload Excel Dashboard Artifact
+      - name: Upload scan artifacts
         uses: actions/upload-artifact@v4
         with:
           name: NIFTY500_GTF_Dashboard_Excel
           path: |
+            gtf_live_data.json
             NIFTY500_GTF_Dashboard.xlsx
             NIFTY500_GTF_Dashboard.csv
           retention-days: 30
