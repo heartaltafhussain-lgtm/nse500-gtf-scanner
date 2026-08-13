@@ -426,21 +426,21 @@
             border-radius: 8px;
             width: 100%;
             overflow-x: auto;
-            overflow-y: hidden;
+            overflow-y: visible;
             -webkit-overflow-scrolling: touch;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
             position: relative;
         }
-        table {
+        #stocks-table {
             width: 100%;
             border-collapse: collapse;
-            min-width: 1150px;
+            min-width: 1720px;
         }
-        thead {
+        #stocks-table thead {
             background-color: var(--bg-header);
             border-bottom: 2px solid var(--border-color);
         }
-        th {
+        #stocks-table th {
             padding: 12px 14px;
             text-align: left;
             font-size: 11px;
@@ -452,34 +452,81 @@
             user-select: none;
             white-space: nowrap;
         }
-        th:hover {
+        #stocks-table th:hover {
             color: #fff;
         }
-        th.extra-col {
+        #stocks-table th.extra-col {
             background-color: rgba(255, 179, 0, 0.1);
             color: var(--orange);
         }
-        td {
+        #stocks-table td {
             padding: 12px 14px;
             font-size: 13px;
             border-bottom: 1px solid #1A1E29;
             vertical-align: middle;
             white-space: nowrap;
         }
-        tr:hover {
+        #stocks-table tbody tr:hover {
             background-color: #181C28;
         }
-        th:first-child,
-        td:first-child {
+        /* Sticky first column ONLY on the main screener table — never on Top 3 */
+        #stocks-table th:first-child,
+        #stocks-table td:first-child {
             position: sticky;
             left: 0;
             z-index: 5;
             background-color: #131722;
             border-right: 1px solid #2A2E39;
         }
-        th:first-child {
+        #stocks-table th:first-child {
             background-color: #1E222D;
             z-index: 10;
+        }
+        .top3-card {
+            margin: 15px 0 25px 0;
+            border: 2px solid #00E676;
+            border-radius: 12px;
+            background: #0c1511;
+            box-shadow: 0 8px 24px rgba(0, 230, 118, 0.15);
+            overflow: hidden;
+        }
+        .top3-table-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .top3-table-wrapper table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 980px;
+        }
+        .top3-table-wrapper th:first-child,
+        .top3-table-wrapper td:first-child {
+            position: static !important;
+            left: auto !important;
+            z-index: auto !important;
+            background: transparent !important;
+            border-right: none !important;
+        }
+        .table-empty {
+            text-align: center;
+            padding: 28px 16px !important;
+            color: #8A939F;
+            font-weight: 600;
+            white-space: normal !important;
+        }
+        #table-status {
+            display: none;
+            margin: 0 0 12px 0;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+        #table-status.err {
+            display: block;
+            background: rgba(255, 82, 82, 0.12);
+            border: 1px solid rgba(255, 82, 82, 0.4);
+            color: #FF8A80;
         }
         .symbol-link {
             font-weight: 700;
@@ -510,6 +557,11 @@
             background-color: rgba(255, 82, 82, 0.15);
             color: var(--red);
             border: 1px solid rgba(255, 82, 82, 0.3);
+        }
+        .tag-neutral {
+            background-color: rgba(255, 179, 0, 0.15);
+            color: var(--orange);
+            border: 1px solid rgba(255, 179, 0, 0.3);
         }
         .score-badge {
             font-weight: 800;
@@ -608,7 +660,7 @@
             <div class="header-badges">
                 <!-- 100% AUTOMATIC LIVE CURRENT DATE BADGE -->
                 <div class="badge date-badge" id="live-date-badge">● 2026-08-10</div>
-                <div class="badge eod-badge">📊 EOD Confirmed Scan (Monthly 1M Support)</div>
+                <div class="badge eod-badge">📊 EOD Confirmed Scan • v3.18.1 ROW FIX</div>
                 <button class="btn-refresh" onclick="refreshDashboard()" title="Refresh Dashboard Data & Table">
                     <span id="refresh-icon">🔄</span> Refresh
                 </button>
@@ -642,7 +694,7 @@
         
         
         <!-- TOP 3 WEEKLY INSTITUTIONAL SWING PICKS TABLE (TARGET: ₹3,000/WEEK PROFIT) -->
-        <div class="top3-table-wrapper" style="margin: 15px 0 25px 0; border: 2px solid #00E676; border-radius: 12px; overflow-x: auto; -webkit-overflow-scrolling: touch; background: #0c1511; box-shadow: 0 8px 24px rgba(0, 230, 118, 0.15);">
+        <div class="top3-card">
             <div style="background: linear-gradient(90deg, #0f2e21, #0a1f16); padding: 14px 20px; border-bottom: 2px solid #00E676; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
                 <div>
                     <h3 style="color: #00E676; font-size: 16.5px; font-weight: 800; margin: 0;">🏆 TOP 3 INSTITUTIONAL WEEKLY SWING PICKS • TARGET: ₹3,000/WEEK PROFIT GOAL</h3>
@@ -653,7 +705,8 @@
                 </div>
             </div>
 
-            <table style="width: 100%; border-collapse: collapse; text-align: left; min-width: 850px;">
+            <div class="top3-table-wrapper">
+            <table style="width: 100%; border-collapse: collapse; text-align: left; min-width: 980px;">
                 <thead>
                     <tr style="background: #11221c; border-bottom: 2px solid #00E676;">
                         <th style="padding: 12px 14px; color: #00E676; font-size: 11px; text-transform: uppercase;">SWING PICK & SECTOR</th>
@@ -756,6 +809,7 @@
                     </tr>
                 </tbody>
             </table>
+            </div>
         </div>
 
         <!-- Section 2 Title -->
@@ -791,6 +845,7 @@
                 <option value="ALL">Type: All</option>
                 <option value="DEMAND">DEMAND</option>
                 <option value="SUPPLY">SUPPLY</option>
+                <option value="EQUILIBRIUM">EQUILIBRIUM / WAIT</option>
             </select>
 
             <select id="filter-1d-score" class="filter-select" style="border-color: var(--orange);" onchange="filterTable()">
@@ -814,8 +869,10 @@
 
         <!-- MOBILE SWIPE HINT BAR -->
         <div class="mobile-swipe-hint">
-            <span>👉 ↔ Swipe table left / right to view 1D, 1M & GTF COMBO SCORE columns ↔</span>
+            <span>👉 ↔ Swipe table left / right to view 1W TREND, FRESHNESS, VOLUME & CALCULATOR columns ↔</span>
         </div>
+
+        <div id="table-status"></div>
 
         <!-- Main Dashboard Table -->
         <div class="table-wrapper">
@@ -847,7 +904,7 @@
         </div>
 
         <div class="footer">
-            <div>Showing <span id="row-count">42</span> stocks • GTF Episode 16 Sectoral Analysis Screener (<span id="footer-date-text">2026-08-10</span>)</div>
+            <div>Showing <span id="row-count">0</span> stocks • GTF Episode 16 Sectoral Analysis Screener (<span id="footer-date-text">2026-08-13</span>)</div>
             <div>NSE Nifty 500 • Execution: Daily (1D) | Supporting: Monthly (1M) | All 42+ Stocks 100% Live Audited</div>
         </div>
     </div>
@@ -964,9 +1021,9 @@
             { sym: "APOLLOHOSP", comp: "Apollo Hospitals Ltd",   sector: "HEALTHCARE",  type: "DEMAND", ltp: 6620.40, z1d: "6450 - 6580 DBR DEMAND",   s1d: "8.5 A",  z1m: "6300 - 6500 DBR DEMAND",  s1m: "8.0 A",  secBonus: "+1.0 PT",  combo: "9.5 / 10 ⭐ SOLID COMBO",  sig: "BUY READY" },
 
             // BANK / PVTBANK / PSUBANK / FINSERVICE (100% Audited CMPs)
-            { sym: "SBIN",       comp: "State Bank of India",    sector: "PSUBANK",     type: "DEMAND", ltp: 1085.00, z1d: "1040 - 1075 DBR DEMAND",   s1d: "9.5 A+", z1m: "1000 - 1065 DBR DEMAND",  s1m: "9.5 A+", secBonus: "+2.0 PTS", combo: "11.5 / 10 🚀 SUPER COMBO", sig: "BUY READY" },
+            { sym: "SBIN",       comp: "State Bank of India",    sector: "PSUBANK",     type: "EQUILIBRIUM", ltp: 1082.00, z1d: "1040.0 - 1050.0 DR DEMAND (WAIT)", s1d: "7.0 A",  z1m: "1040.0 - 1100.0 RD SUPPLY", s1m: "6.0 B",  secBonus: "+1.0 PT",  combo: "8.0 / 10 WAIT FOR PULLBACK", sig: "WAIT FOR PULLBACK" },
             { sym: "HDFCBANK",   comp: "HDFC Bank Ltd",          sector: "BANK",        type: "DEMAND", ltp: 730.65,  z1d: "710 - 726 DR DEMAND",      s1d: "9.5 A+", z1m: "695 - 720 DR DEMAND",     s1m: "9.5 A+", secBonus: "+2.0 PTS", combo: "11.5 / 10 🚀 SUPER COMBO", sig: "BUY READY" },
-            { sym: "ICICIBANK",  comp: "ICICI Bank Ltd",         sector: "PVTBANK",     type: "DEMAND", ltp: 1431.80, z1d: "1160 - 1190 DBR DEMAND",   s1d: "9.0 A+", z1m: "1120 - 1180 DBR DEMAND",  s1m: "9.0 A+", secBonus: "+2.0 PTS", combo: "11.0 / 10 🚀 SUPER COMBO", sig: "BUY READY" },
+            { sym: "ICICIBANK",  comp: "ICICI Bank Ltd",         sector: "PVTBANK",     type: "SUPPLY", ltp: 1431.80, z1d: "1430.0 - 1460.0 RBD SUPPLY", s1d: "8.5 A",  z1m: "1430.0 - 1500.0 RBD SUPPLY", s1m: "8.5 A",  secBonus: "0.0 PTS",  combo: "8.5 / 10 SUPPLY HIT", sig: "SUPPLY TEST" },
             { sym: "AXISBANK",   comp: "Axis Bank Ltd",          sector: "PVTBANK",     type: "DEMAND", ltp: 1245.60, z1d: "1210 - 1240 RBR DEMAND",   s1d: "8.5 A",  z1m: "1180 - 1230 DR DEMAND",   s1m: "9.0 A+", secBonus: "+2.0 PTS", combo: "10.5 / 10 🔥 HIGH COMBO",  sig: "BUY READY" },
             { sym: "BAJFINANCE", comp: "Bajaj Finance Ltd",      sector: "FINSERVICE",  type: "DEMAND", ltp: 6940.50, z1d: "6780 - 6900 DBR DEMAND",   s1d: "9.0 A+", z1m: "6650 - 6880 DBR DEMAND",  s1m: "9.0 A+", secBonus: "+2.0 PTS", combo: "11.0 / 10 🚀 SUPER COMBO", sig: "BUY READY" },
             { sym: "BAJAJFINSV", comp: "Bajaj Finserv Ltd",      sector: "FINSERVICE",  type: "SUPPLY", ltp: 2021.30, z1d: "2050 - 2090 RD SUPPLY",    s1d: "7.5 A",  z1m: "1980 - 2040 RBD SUPPLY", s1m: "8.5 A",  secBonus: "0.0 PTS",  combo: "8.5 / 10 ⚠️ SUPPLY NEAR", sig: "SUPPLY TEST" },
@@ -1015,20 +1072,20 @@
                 const res = await fetch("gtf_live_data.json?t=" + cacheBuster, { cache: "no-store" });
                 if (res.ok) {
                     const jsonData = await res.json();
-                    if (jsonData.sectorIndices) {
+                    if (jsonData.sectorIndices && jsonData.sectorIndices.length) {
                         sectorIndices.length = 0;
-                        jsonData.sectorIndices.forEach(s => sectorIndices.push(s));
+                        jsonData.sectorIndices.forEach(function (s) { sectorIndices.push(s); });
                     }
-                    if (jsonData.stockData) {
+                    if (jsonData.stockData && jsonData.stockData.length) {
                         stockData.length = 0;
-                        jsonData.stockData.forEach(st => stockData.push(st));
+                        jsonData.stockData.forEach(function (st) { stockData.push(st); });
                     }
                     renderSectorMatrix();
                     updateHeroBanner();
-                    renderTable(stockData);
+                    filterTable();
                 }
-            } catch(e) {
-                // Fallback to in-browser live audited array
+            } catch (e) {
+                console.warn("Live JSON feed unavailable, using audited fallback rows.", e);
             }
         }
 
@@ -1122,69 +1179,151 @@
             document.getElementById("res-t2").innerText = "₹" + t2 + " (+₹" + Math.round(qty * riskPerShare * 3).toLocaleString() + " NET)";
         }
 
+        function escHtml(value) {
+            return String(value == null ? "" : value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;");
+        }
+
+        function typeTagClass(type) {
+            const t = String(type || "").toUpperCase();
+            if (t === "DEMAND") return "tag-demand";
+            if (t === "SUPPLY") return "tag-supply";
+            return "tag-neutral";
+        }
+
+        function setTableStatus(message, isError) {
+            const el = document.getElementById("table-status");
+            if (!el) return;
+            if (!message) {
+                el.className = "";
+                el.style.display = "none";
+                el.textContent = "";
+                return;
+            }
+            el.className = isError ? "err" : "";
+            el.style.display = "block";
+            el.textContent = message;
+        }
+
         function renderTable(data) {
-            currentlyVisibleStocks = data;
+            currentlyVisibleStocks = Array.isArray(data) ? data : [];
             const tbody = document.getElementById("table-body");
+            const countEl = document.getElementById("row-count");
+            if (!tbody) {
+                setTableStatus("Table body missing — HTML structure broken.", true);
+                return;
+            }
 
             tbody.innerHTML = "";
-            data.forEach(item => {
-                const tr = document.createElement("tr");
-                
-                const score1Class = (item.s1d && item.s1d.includes("A+")) ? "score-a-plus" : ((item.s1d && item.s1d.includes("A")) ? "score-a" : "score-b");
-                const score2Class = (item.s1m && item.s1m.includes("A+")) ? "score-a-plus" : ((item.s1m && item.s1m.includes("A")) ? "score-a" : "score-b");
-                
-                let sigClass = "sig-buy";
-                if (item.sig && (item.sig.includes("SELL") || item.sig.includes("SUPPLY"))) sigClass = "sig-sell";
-                if (item.sig && (item.sig.includes("PULLBACK") || item.sig.includes("MONITOR"))) sigClass = "score-b";
+            if (!currentlyVisibleStocks.length) {
+                tbody.innerHTML = '<tr><td class="table-empty" colspan="16">No matching zone stocks for current filters.</td></tr>';
+                if (countEl) countEl.innerText = "0";
+                return;
+            }
 
-                let comboCol = "#00E676";
-                if (item.combo && (item.combo.includes("HIGH") || item.combo.includes("SOLID"))) comboCol = "#69F0AE";
-                if (item.combo && (item.combo.includes("SUPPLY") || item.combo.includes("SELL"))) comboCol = "#FF5252";
+            currentlyVisibleStocks.forEach(function (item) {
+                try {
+                    const tr = document.createElement("tr");
+                    const s1d = item.s1d || "—";
+                    const s1m = item.s1m || "—";
+                    const score1Class = s1d.indexOf("A+") !== -1 ? "score-a-plus" : (s1d.indexOf("A") !== -1 ? "score-a" : "score-b");
+                    const score2Class = s1m.indexOf("A+") !== -1 ? "score-a-plus" : (s1m.indexOf("A") !== -1 ? "score-a" : "score-b");
 
-                const ltpNum = parseFloat(item.ltp) || 1000.0;
-                const buyEntry = (ltpNum * 0.98).toFixed(1);
-                const buySl    = (ltpNum * 0.96).toFixed(1);
+                    let sigClass = "sig-buy";
+                    const sig = item.sig || "";
+                    if (sig.indexOf("SELL") !== -1 || sig.indexOf("SUPPLY") !== -1) sigClass = "sig-sell";
+                    if (sig.indexOf("PULLBACK") !== -1 || sig.indexOf("MONITOR") !== -1 || sig.indexOf("WAIT") !== -1) sigClass = "score-b";
 
-                tr.innerHTML = `
-                    <td>
-                        <a href="https://in.tradingview.com/chart/?symbol=NSE%3A${item.sym}" target="_blank" class="symbol-link" title="Click to open ${item.comp} live chart in TradingView">
-                            ${item.sym} <span style="font-size: 11px;">↗</span>
-                        </a>
-                    </td>
-                    <td>${item.comp}</td>
-                    <td><span style="color: #FFB300; font-weight: 700;">NIFTY_${item.sector}</span></td>
-                    <td><span class="tag ${item.type === DEMAND ? tag-demand : tag-supply}">${item.type}</span></td>
-                    <td style="font-weight: 700; color: #fff;">₹${ltpNum.toFixed(2)}</td>
-                    <td style="color: #69F0AE; font-size: 12px;">${item.z1d}</td>
-                    <td style="background-color: rgba(255,179,0,0.05);"><span class="score-badge ${score1Class}">${item.s1d}</span></td>
-                    <td style="color: #8A939F; font-size: 12px;">${item.z1m}</td>
-                    <td style="background-color: rgba(255,179,0,0.05);"><span class="score-badge ${score2Class}">${item.s1m}</span></td>
-                    <td style="color: #60a5fa; font-weight: 700; font-size: 11.5px;">${item.w_trend || "1W UP • 20 EMA BULLISH"}</td>
-                    <td style="font-size: 12px; white-space: nowrap;">${item.fresh_badge || "🟢 0 TESTS (FRESH)"}</td>
-                    <td style="font-weight: 700; font-size: 11.5px; color: #facc15; white-space: nowrap;">${item.vol_expl || "NORMAL VOL"}</td>
-                    <td style="font-weight: 800; color: #00E676;">${item.secBonus}</td>
-                    <td style="font-weight: 800; color: ${comboCol}; font-size: 14px; white-space: nowrap;">${item.combo}</td>
-                    <td><span class="${sigClass}">${item.sig}</span></td>
-                    <td style="text-align: center;"><button class="calc-btn" onclick="openCalcModal(&#39;${item.sym}&#39;, ${buyEntry}, ${buySl})" title="Calculate lot size for ${item.sym}">🧮 Qty</button></td>
-                `;
-                tbody.appendChild(tr);
+                    let comboCol = "#00E676";
+                    const combo = item.combo || "";
+                    if (combo.indexOf("HIGH") !== -1 || combo.indexOf("SOLID") !== -1) comboCol = "#69F0AE";
+                    if (combo.indexOf("SUPPLY") !== -1 || combo.indexOf("SELL") !== -1 || combo.indexOf("WAIT") !== -1) comboCol = "#FF5252";
+
+                    const ltpNum = parseFloat(item.ltp);
+                    const ltpSafe = isFinite(ltpNum) ? ltpNum : 0;
+                    const buyEntry = +(ltpSafe * 0.98).toFixed(1);
+                    const buySl = +(ltpSafe * 0.96).toFixed(1);
+                    const sym = item.sym || "";
+                    const comp = item.comp || "";
+                    const typeVal = item.type || "—";
+                    const tagClass = typeTagClass(typeVal);
+
+                    tr.innerHTML =
+                        '<td><a href="https://in.tradingview.com/chart/?symbol=NSE%3A' + encodeURIComponent(sym) + '" target="_blank" rel="noopener" class="symbol-link" title="Click to open ' + escHtml(comp) + ' live chart in TradingView">' + escHtml(sym) + ' <span style="font-size:11px;">↗</span></a></td>' +
+                        '<td>' + escHtml(comp) + '</td>' +
+                        '<td><span style="color:#FFB300;font-weight:700;">NIFTY_' + escHtml(item.sector || "") + '</span></td>' +
+                        '<td><span class="tag ' + tagClass + '">' + escHtml(typeVal) + '</span></td>' +
+                        '<td style="font-weight:700;color:#fff;">₹' + ltpSafe.toFixed(2) + '</td>' +
+                        '<td style="color:#69F0AE;font-size:12px;">' + escHtml(item.z1d || "—") + '</td>' +
+                        '<td style="background-color:rgba(255,179,0,0.05);"><span class="score-badge ' + score1Class + '">' + escHtml(s1d) + '</span></td>' +
+                        '<td style="color:#8A939F;font-size:12px;">' + escHtml(item.z1m || "—") + '</td>' +
+                        '<td style="background-color:rgba(255,179,0,0.05);"><span class="score-badge ' + score2Class + '">' + escHtml(s1m) + '</span></td>' +
+                        '<td style="color:#60a5fa;font-weight:700;font-size:11.5px;">' + escHtml(item.w_trend || "1W UP • 20 EMA BULLISH") + '</td>' +
+                        '<td style="font-size:12px;white-space:nowrap;">' + escHtml(item.fresh_badge || "🟢 0 TESTS (FRESH)") + '</td>' +
+                        '<td style="font-weight:700;font-size:11.5px;color:#facc15;white-space:nowrap;">' + escHtml(item.vol_expl || "NORMAL VOL") + '</td>' +
+                        '<td style="font-weight:800;color:#00E676;">' + escHtml(item.secBonus || "—") + '</td>' +
+                        '<td style="font-weight:800;color:' + comboCol + ';font-size:14px;white-space:nowrap;">' + escHtml(combo) + '</td>' +
+                        '<td><span class="' + sigClass + '">' + escHtml(sig) + '</span></td>' +
+                        '<td style="text-align:center;"></td>';
+
+                    const btn = document.createElement("button");
+                    btn.className = "calc-btn";
+                    btn.type = "button";
+                    btn.textContent = "🧮 Qty";
+                    btn.title = "Calculate lot size for " + sym;
+                    btn.addEventListener("click", function () {
+                        openCalcModal(sym, buyEntry, buySl);
+                    });
+                    tr.lastChild.appendChild(btn);
+                    tbody.appendChild(tr);
+                } catch (rowErr) {
+                    console.error("GTF row render failed", item && item.sym, rowErr);
+                }
             });
-            document.getElementById("row-count").innerText = data.length;
+
+            if (countEl) countEl.innerText = currentlyVisibleStocks.length;
+            if (!tbody.children.length) {
+                setTableStatus("Rows failed to render. Hard-refresh the page after upload.", true);
+            } else {
+                setTableStatus("");
+            }
+        }
+
+        let sortAsc = {};
+        function sortTable(colIndex) {
+            const keys = ["sym", "comp", "sector", "type", "ltp", "z1d", "s1d", "z1m", "s1m", "w_trend", "fresh_badge", "vol_expl", "secBonus", "combo", "sig"];
+            const key = keys[colIndex];
+            if (!key) return;
+            sortAsc[key] = !sortAsc[key];
+            const dir = sortAsc[key] ? 1 : -1;
+            const list = (currentlyVisibleStocks || stockData).slice();
+            list.sort(function (a, b) {
+                const va = a[key];
+                const vb = b[key];
+                if (key === "ltp") return (parseFloat(va) - parseFloat(vb)) * dir;
+                return String(va || "").localeCompare(String(vb || "")) * dir;
+            });
+            renderTable(list);
         }
 
         function filterTable() {
-            const search = document.getElementById("search-box").value.toLowerCase();
+            const search = (document.getElementById("search-box").value || "").toLowerCase();
             const sector = document.getElementById("filter-sector").value;
             const type   = document.getElementById("filter-type").value;
             const s1d    = document.getElementById("filter-1d-score").value;
             const s1m    = document.getElementById("filter-1m-score").value;
 
-            const filtered = stockData.filter(item => {
-                const matchSearch = item.sym.toLowerCase().includes(search) || item.comp.toLowerCase().includes(search);
+            const filtered = stockData.filter(function (item) {
+                const sym = String(item.sym || "").toLowerCase();
+                const comp = String(item.comp || "").toLowerCase();
+                const matchSearch = !search || sym.indexOf(search) !== -1 || comp.indexOf(search) !== -1;
                 const matchSector = (sector === "ALL") || (item.sector === sector);
                 const matchType   = (type === "ALL") || (item.type === type);
-                const match1D     = (s1d === "ALL") || item.s1d.includes(s1d);
-                const match1M     = (s1m === "ALL") || item.s1m.includes(s1m);
+                const match1D     = (s1d === "ALL") || String(item.s1d || "").indexOf(s1d) !== -1;
+                const match1M     = (s1m === "ALL") || String(item.s1m || "").indexOf(s1m) !== -1;
                 return matchSearch && matchSector && matchType && match1D && match1M;
             });
             renderTable(filtered);
@@ -1242,12 +1381,21 @@
         }
 
         // Initialize UI
-        updateLiveDateUI();
-        loadAutomatedJSONFeed();
-        renderSectorMatrix();
-        updateHeroBanner();
-        renderTable(stockData);
-        checkSessionLock();
+        try {
+            updateLiveDateUI();
+            renderSectorMatrix();
+            updateHeroBanner();
+            renderTable(stockData);
+            loadAutomatedJSONFeed();
+            checkSessionLock();
+        } catch (bootErr) {
+            console.error(bootErr);
+            setTableStatus("Dashboard boot error: " + bootErr.message, true);
+        }
+
+        window.addEventListener("error", function (ev) {
+            setTableStatus("JS error: " + (ev && ev.message ? ev.message : "unknown"), true);
+        });
     </script>
 
     <!-- INTERACTIVE LOT SIZE & RISK-REWARD CALCULATOR MODAL -->
@@ -1296,5 +1444,5 @@
         </div>
     </div>
 
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a2a0f9686a4ec6c0',t:'MTc4NjU1MzM3Ng=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a2a41fd67bfd7a16',t:'MTc4NjU4NjQwNw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
